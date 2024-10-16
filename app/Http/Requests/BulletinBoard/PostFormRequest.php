@@ -11,7 +11,7 @@ class PostFormRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize() // ログインしているかどうかをチェックするもの
     {
         return true;
     }
@@ -23,6 +23,8 @@ class PostFormRequest extends FormRequest
      */
     public function rules()
     {
+        $data = $this->all(); // prepareForValidation用に追加
+
         return [
             'post_title' => 'min:4|max:50',
             'post_body' => 'min:10|max:500',
@@ -38,7 +40,7 @@ class PostFormRequest extends FormRequest
             'password' => 'confirmed|required|min:8|max:30',
             //'password' => 'confirmed|required|regex:/^[A-Za-z0-9]+$/u|min:8|max:30',
 
-            //'birth_day' => 'required|date|before:'.date('Y-m-d'),
+            'birth_day' => 'required|date|before:'.date('Y-m-d'),
             /*'old_year' => 'required|numeric|birth_day:old_year,old_month,old_day',
             'old_month' => 'required|numeric',
             'old_day' => 'required|numeric',*/
@@ -61,7 +63,39 @@ class PostFormRequest extends FormRequest
             'post_body.max' => '最大文字数は500文字です。',
 
             // 追加
-            'over_name.max' => '10文字以内',
+            'over_name.max' => '性は10文字以内で入力してください。',
+            'under_name.max' => '名は10文字以内で入力してください。',
+            'over_name_kana.regex' => 'セイはカタカナで入力してください。',
+            'over_name_kana.max' => 'セイは30文字以内で入力してください。',
+            'under_name_kana.regex' => 'メイはカタカナで入力してください。',
+            'over_name_kana.max' => 'メイは30文字以内で入力してください。',
+            'mail_address.unique' => '既に登録されているメールアドレスです。',
+            'mail_address.email' => 'メールアドレスの形式で入力してください。',
+            'mail_address.max' => 'メールアドレスは100文字以内で入力してください。',
+            'birth_day.before' => '正しい生年月日を入力してください。',
+            'birth_day.date' => '正しい生年月日を入力してください。',
+            'password.confirmed' => '確認用パスワードと一致しません。',
+            'password.min' => 'パスワードは8文字以上入力してください。',
+            'password.max' => 'パスワードは30文字以下で入力してください。',
         ];
     }
+
+    // 追加
+    protected function prepareForValidation()
+    {
+        $data = [];
+        $data['birth_day'] = sprintf('%04d-%02d-%02d', $this->old_year, $this->old_month, $this->old_day);
+        if ($data['birth_day'] == '0000-00-00') $data['birth_day'] = null;
+        //$data['title'] = mb_convert_kana($this->title, 'aKV');
+        //$data['body'] = mb_convert_kana($this->body, 'aKV');
+
+        $this->merge($data);
+    }
+    /*protected function prepareForValidation()
+    {
+    $birth_day = ($this->filled(['old_year', 'old_month', 'old_day'])) ? $this->date .' '. $this->time : '';
+    $this->merge([
+       'birth_day' => $birth_day
+    ]);
+    }*/
 }

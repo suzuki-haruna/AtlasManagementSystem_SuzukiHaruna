@@ -16,3 +16,7 @@
       </ul>
     </div>
   @endif--}}
+
+  FormController＝RegisterController
+  postValidates＝registerPost
+  PostRequest＝PostFormRequest

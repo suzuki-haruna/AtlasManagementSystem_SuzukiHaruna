@@ -19,8 +19,14 @@
 <body>
     <form action="{{ route('registerPost') }}" method="POST">
         <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
-            <div class="w-25 vh-75 border p-3">
-                <div class="register_form">
+            <div class="w-25 vh-75 border p-3 register_form">
+                <!--<div class="register_form">-->
+                    @error('over_name')
+                    <div class="error_message">{{ $message }}</div>
+                    @enderror
+                    @error('under_name')
+                    <div class="error_message">{{ $message }}</div>
+                    @enderror
                     <div class="d-flex mt-3" style="justify-content:space-between">
                         <div class="" style="width:140px">
                             <label class="d-block m-0" style="font-size:13px">姓</label>
@@ -28,7 +34,7 @@
                                 <input type="text" style="width:140px;" class="border-0 over_name" name="over_name">
 
                                 <!--バリデーションテスト-->
-                                @foreach ($errors->all() as $error)
+                                {{-- @foreach ($errors->all() as $error)
                                 <li>{{$error}}</li>
                                 @endforeach
 
@@ -39,11 +45,7 @@
                                 <td> {{ $message }} </td>
                                 @endforeach
                                 </tr>
-                                @endif
-
-                                {{-- @error('over_name')
-                                    <div class=""><span>{{ $message }}</span></div>
-                                @enderror --}}
+                                @endif --}}
 
                             </div>
                         </div>
@@ -55,6 +57,12 @@
                             </div>
                         </div>
                     </div>
+                    @error('over_name_kana')
+                    <div class="error_message">{{ $message }}</div>
+                    @enderror
+                    @error('under_name_kana')
+                    <div class="error_message">{{ $message }}</div>
+                    @enderror
                     <div class="d-flex mt-3" style="justify-content:space-between">
                         <div class="" style="width:140px">
                             <label class="d-block m-0" style="font-size:13px">セイ</label>
@@ -71,23 +79,30 @@
                             </div>
                         </div>
                     </div>
+                    @error('mail_address')
+                    <div class="error_message">{{ $message }}</div>
+                    @enderror
                     <div class="mt-3">
                         <label class="m-0 d-block" style="font-size:13px">メールアドレス</label>
                         <div class="border-bottom border-primary">
                             <input type="mail" class="w-100 border-0 mail_address" name="mail_address">
                         </div>
                     </div>
+                <!--</div>-->
+                <div class="mt-3 radio_button" style="">
+                    <div class="radio_buttons"><input type="radio" name="sex" class="sex" value="1">
+                    <label style="font-size:13px">男性</label></div>
+                    <div class="radio_buttons"><input type="radio" name="sex" class="sex" value="2">
+                    <label style="font-size:13px">女性</label></div>
+                    <div class="radio_buttons"><input type="radio" name="sex" class="sex" value="3">
+                    <label style="font-size:13px">その他</label></div>
                 </div>
-                <div class="mt-3">
-                    <input type="radio" name="sex" class="sex" value="1">
-                    <label style="font-size:13px">男性</label>
-                    <input type="radio" name="sex" class="sex" value="2">
-                    <label style="font-size:13px">女性</label>
-                    <input type="radio" name="sex" class="sex" value="3">
-                    <label style="font-size:13px">その他</label>
-                </div>
+                @error('birth_day')
+                <div class="error_message">{{ $message }}</div>
+                @enderror
                 <div class="mt-3">
                     <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
+                    <div class="birth_day">
                     <select class="old_year" name="old_year">
                         <option value="none">-----</option>
                         <!-- <option value="1985">1985</option>
@@ -183,6 +198,7 @@
                         <option value="31">31</option>
                     </select>
                     <label style="font-size:13px">日</label>
+                    </div>
                 </div>
                 <div class="mt-3">
                     <label class="d-block m-0" style="font-size:13px">役職</label>
@@ -204,6 +220,9 @@
                         </div>
                     @endforeach
                 </div>
+                @error('password')
+                <div class="error_message">{{ $message }}</div>
+                @enderror
                 <div class="mt-3">
                     <label class="d-block m-0" style="font-size:13px">パスワード</label>
                     <div class="border-bottom border-primary">
@@ -221,7 +240,7 @@
                         onclick="return confirm('登録してよろしいですか？')">
                 </div>
                 <div class="text-center">
-                    <a href="{{ route('loginView') }}">ログイン</a>
+                    <a href="{{ route('loginView') }}">ログインはこちら</a>
                 </div>
             </div>
             {{ csrf_field() }}

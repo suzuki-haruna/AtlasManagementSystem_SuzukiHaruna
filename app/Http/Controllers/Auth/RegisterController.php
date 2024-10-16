@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use DB;
 
 use App\Models\Users\Subjects;
+use App\Http\Requests\BulletinBoard\PostFormRequest;
 
 class RegisterController extends Controller
 {
@@ -57,38 +58,12 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(Request $request)
+    public function registerPost(PostFormRequest $request)
+    //public function registerPost(Request $request)
     {
         // トランザクション処理
         DB::beginTransaction();
         try{
-
-        //バリデーション
-        /*$request->validate([
-            'over_name' => 'required|string|max:10',
-            'under_name' => 'required|string|max:10',
-            'over_name_kana' => 'required|string|regex:/\A[ァ-ヴー]+\z/u|max:30',
-            'under_name_kana' => 'required|string|regex:/\A[ァ-ヴー]+\z/u|max:30',
-            'mail_address' => 'required|unique:users,mail_address|email|max:100',
-            'sex' => 'required',
-            'role' => 'required',
-            'password' => 'confirmed|required|min:8|max:30',*/
-            //'password' => 'confirmed|required|regex:/^[A-Za-z0-9]+$/u|min:8|max:30',
-
-            //'birth_day' => 'required|date|before:'.date('Y-m-d'),
-            /*'old_year' => 'required|numeric|birth_day:old_year,old_month,old_day',
-            'old_month' => 'required|numeric',
-            'old_day' => 'required|numeric',*/
-            /*'old_year' => 'nullable|present|numeric|required_with:old_month,old_day',
-            'old_month' => 'nullable|present|numeric|required_with:old_year,old_day',
-            'old_day' => 'nullable|present|numeric|required_with:old_year,old_mouth',
-            'birth_day' => 'nullable|date|before_or_equal:' . today()->format('Y-m-d'),*/
-            //'birth_day' => 'date|before:today',　before:'.date('Y-m-d'),
-            /*'old_year' => 'required',
-            'old_month' => 'required',
-            'old_day' => 'required',*/
-
-        //]);
 
             $old_year = $request->old_year;
             $old_month = $request->old_month;
