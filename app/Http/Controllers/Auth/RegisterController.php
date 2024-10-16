@@ -64,12 +64,16 @@ class RegisterController extends Controller
         try{
 
         //バリデーション
-        $request->validate([
+        /*$request->validate([
             'over_name' => 'required|string|max:10',
             'under_name' => 'required|string|max:10',
             'over_name_kana' => 'required|string|regex:/\A[ァ-ヴー]+\z/u|max:30',
             'under_name_kana' => 'required|string|regex:/\A[ァ-ヴー]+\z/u|max:30',
             'mail_address' => 'required|unique:users,mail_address|email|max:100',
+            'sex' => 'required',
+            'role' => 'required',
+            'password' => 'confirmed|required|min:8|max:30',*/
+            //'password' => 'confirmed|required|regex:/^[A-Za-z0-9]+$/u|min:8|max:30',
 
             //'birth_day' => 'required|date|before:'.date('Y-m-d'),
             /*'old_year' => 'required|numeric|birth_day:old_year,old_month,old_day',
@@ -83,10 +87,8 @@ class RegisterController extends Controller
             /*'old_year' => 'required',
             'old_month' => 'required',
             'old_day' => 'required',*/
-            //'sex' => 'required',
 
-            /*'password' => 'confirmed|required|regex:/^[A-Za-z0-9]+$/u|min:8|max:20',*/
-        ]);
+        //]);
 
             $old_year = $request->old_year;
             $old_month = $request->old_month;
@@ -110,7 +112,7 @@ class RegisterController extends Controller
             $user = User::findOrFail($user_get->id);
             $user->subjects()->attach($subjects);
             DB::commit(); // トランザクションで実行したSQLをすべて確定させる
-            return view('auth.login.login');
+            return view('auth.login.login',['msg'=>'OK']);
             }catch(\Exception $e){
             DB::rollback(); //トランザクションで実行したSQLをすべて破棄する
             return redirect()->route('loginView');

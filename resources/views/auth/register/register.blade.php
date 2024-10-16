@@ -26,6 +26,25 @@
                             <label class="d-block m-0" style="font-size:13px">姓</label>
                             <div class="border-bottom border-primary" style="width:140px;">
                                 <input type="text" style="width:140px;" class="border-0 over_name" name="over_name">
+
+                                <!--バリデーションテスト-->
+                                @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                                @endforeach
+
+                                @if ($errors->has('over_name'))
+                                <tr>
+                                <th>ERROR</th>
+                                @foreach($errors->get('over_name') as $message)
+                                <td> {{ $message }} </td>
+                                @endforeach
+                                </tr>
+                                @endif
+
+                                {{-- @error('over_name')
+                                    <div class=""><span>{{ $message }}</span></div>
+                                @enderror --}}
+
                             </div>
                         </div>
                         <div class="" style="width:140px">
@@ -194,7 +213,7 @@
                 <div class="mt-3">
                     <label class="d-block m-0" style="font-size:13px">確認用パスワード</label>
                     <div class="border-bottom border-primary">
-                        <input type="password" class="border-0 w-100 password_confirmation" name="password">
+                        <input type="password" class="border-0 w-100 password_confirmation" name="password_confirmation">
                     </div>
                 </div>
                 <div class="mt-5 text-right">
