@@ -16,7 +16,7 @@
   <form action="{{ route('loginPost') }}" method="POST">
     <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center; flex-direction: column;">
       <!-- ロゴ --><h1 class="logo"><img src="{{ asset('image/atlas-black.png') }}"></h1>
-      <div class="border vh-50 w-25">
+      <div class="border vh-50 w-25 register_form">
         <div class="w-75 m-auto pt-5">
           <label class="d-block m-0" style="font-size:13px;">メールアドレス</label>
           <div class="border-bottom border-primary w-100">

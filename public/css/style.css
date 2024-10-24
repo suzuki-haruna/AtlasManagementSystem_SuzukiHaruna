@@ -34,12 +34,6 @@ label {
   background: #FFF;
 }
 
-.border {
-  border-radius: 10px;
-  box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
-  background: #FFF;
-}
-
 .text-center {
   border-radius: 10px;
 }
@@ -128,6 +122,14 @@ label {
 /* トップページ */
 .user_status {
   border-radius: 10px;
+  background: #FFF;
+}
+
+.user_status p {
+  background: #FFF;
+}
+
+.user_status span {
   background: #FFF;
 }
 
