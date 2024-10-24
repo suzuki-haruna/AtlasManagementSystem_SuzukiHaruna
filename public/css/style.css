@@ -24,7 +24,27 @@ label {
   background: #FFF;
 }
 
-/* ログイン前 */
+/** ログイン前 **/
+/* Login */
+.logo img {
+  height: 50%;
+}
+
+.w-75 {
+  background: #FFF;
+}
+
+.border {
+  border-radius: 10px;
+  box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
+  background: #FFF;
+}
+
+.text-center {
+  border-radius: 10px;
+}
+
+/* Register */
 .register_form {
   border-radius: 10px;
   box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
@@ -32,10 +52,6 @@ label {
 }
 
 .mt-3 {
-  background: #FFF;
-}
-
-.mt-5 {
   background: #FFF;
 }
 
@@ -58,8 +74,38 @@ label {
 
 .birth_day {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: baseline;
+  background: #FFF;
+}
+
+.birth_day_box {
+  background: #FFF;
+  width: 100%;
+}
+
+:where(.old_year, .old_month, .old_day) {
+  background: #FFF;
+  border: 0;
+  width: 70%;
+}
+
+.subject {
+  background: #FFF;
+}
+
+.register_post {
+  display: flex;
+  justify-content: space-between;
+  background: #FFF;
+}
+
+.register_post_radio {
+  background: #FFF;
+}
+
+.text-right {
+  margin-top: 15px;
   background: #FFF;
 }
 
@@ -195,6 +241,7 @@ label {
 .error_message {
   font-size: 12px;
   color: red;
+  background: #FFF;
 }
 
 /* 掲示板 詳細画面 */

@@ -103,7 +103,8 @@
                 <div class="mt-3">
                     <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
                     <div class="birth_day">
-                    <select class="old_year" name="old_year">
+                        <div class="birth_day_box">
+                        <select class="border-bottom border-primary old_year " name="old_year">
                         <option value="none">-----</option>
                         <option value="1985">1985</option>
                         <option value="1986">1986</option>
@@ -145,9 +146,11 @@
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
-                    </select>
-                    <label style="font-size:13px">年</label>
-                    <select class="old_month" name="old_month">
+                        </select>
+                        <label style="font-size:13px">年</label>
+                        </div>
+                        <div class="birth_day_box">
+                        <select class="border-bottom border-primary old_month" name="old_month">
                         <option value="none">-----</option>
                         <option value="01">1</option>
                         <option value="02">2</option>
@@ -161,9 +164,11 @@
                         <option value="10">10</option>
                         <option value="11">11</option>
                         <option value="12">12</option>
-                    </select>
-                    <label style="font-size:13px">月</label>
-                    <select class="old_day" name="old_day">
+                        </select>
+                        <label style="font-size:13px">月</label>
+                        </div>
+                        <div class="birth_day_box">
+                        <select class="border-bottom border-primary old_day" name="old_day">
                         <option value="none">-----</option>
                         <option value="01">1</option>
                         <option value="02">2</option>
@@ -196,25 +201,28 @@
                         <option value="29">29</option>
                         <option value="30">30</option>
                         <option value="31">31</option>
-                    </select>
-                    <label style="font-size:13px">日</label>
+                        </select>
+                        <label style="font-size:13px">日</label>
+                        </div>
                     </div>
                 </div>
                 <div class="mt-3">
                     <label class="d-block m-0" style="font-size:13px">役職</label>
-                    <input type="radio" name="role" class="admin_role role" value="1">
-                    <label style="font-size:13px">教師(国語)</label>
-                    <input type="radio" name="role" class="admin_role role" value="2">
-                    <label style="font-size:13px">教師(数学)</label>
-                    <input type="radio" name="role" class="admin_role role" value="3">
-                    <label style="font-size:13px">教師(英語)</label>
-                    <input type="radio" name="role" class="other_role role" value="4">
-                    <label style="font-size:13px" class="other_role">生徒</label>
+                    <div class="register_post">
+                    <div class="register_post_radio"><input type="radio" name="role" class="admin_role role" value="1">
+                    <label style="font-size:13px">教師(国語)</label></div>
+                    <div class="register_post_radio"><input type="radio" name="role" class="admin_role role" value="2">
+                    <label style="font-size:13px">教師(数学)</label></div>
+                    <div class="register_post_radio"><input type="radio" name="role" class="admin_role role" value="3">
+                    <label style="font-size:13px">教師(英語)</label></div>
+                    <div class="register_post_radio"><input type="radio" name="role" class="other_role role" value="4">
+                    <label style="font-size:13px" class="other_role">生徒</label><div>
+                    </div></div>
                 </div>
                 <div class="select_teacher d-none">
                     <label class="d-block m-0" style="font-size:13px">選択科目</label>
                     @foreach ($subjects as $subject)
-                        <div class="">
+                        <div class="subject">
                             <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
                             <label>{{ $subject->subject }}</label>
                         </div>
@@ -235,7 +243,7 @@
                         <input type="password" class="border-0 w-100 password_confirmation" name="password_confirmation">
                     </div>
                 </div>
-                <div class="mt-5 text-right">
+                <div class="text-right"><!-- mt-5 -->
                     <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録"
                         onclick="return confirm('登録してよろしいですか？')">
                 </div>

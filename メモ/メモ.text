@@ -1,3 +1,6 @@
+suzuki@jp/00000000
+kakashi@jp/00000000(先)
+
 //バリデーション
 /*$request->validate([
 'over_name' => 'required|string|max:10',*/
