@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use DB;
 
 use App\Models\Users\Subjects;
-use App\Http\Requests\BulletinBoard\PostFormRequest;
+use App\Http\Requests\RegisterFormRequest;
 
 class RegisterController extends Controller
 {
@@ -58,7 +58,7 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(PostFormRequest $request)
+    public function registerPost(RegisterFormRequest $request)
     //public function registerPost(Request $request)
     {
         // トランザクション処理
