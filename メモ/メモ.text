@@ -5,9 +5,10 @@ taka@jp/00000000
 
 11/7 30%
 
-  @foreach ($subjects as $subject)
-                        <div class="subject">
-                            <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
-                            <label>{{ $subject->subject }}</label>
-                        </div>
-                    @endforeach
+Movie	title, content
+Comment	comment
+User	name
+
+subjects subject
+subject_users subject_id
+users id

@@ -23,11 +23,12 @@ class UsersController extends Controller
 
         //$user = User::with('subjects')->get();
         //$subjects = $request->subject_id;
-        //$subjects = $request->subject;
+        $subjects = $request->subjects;
+        //$subjects = $request->users;
         //$subjects = $request->get('subject');
         //$subjects = Subjects::with('users')->get();
         //$subjects = User::with('subjects')->get();
-        $subjects = null;// ここで検索時の科目を受け取る
+        //$subjects = null;// ここで検索時の科目を受け取る
         //ddd($subjects);
         $userFactory = new SearchResultFactories();
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
