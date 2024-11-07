@@ -5,25 +5,9 @@ taka@jp/00000000
 
 11/7 30%
 
-//バリデーション
-/*$request->validate([
-'over_name' => 'required|string|max:10',*/
-/*'mail' => 'required|unique:users,mail|email|min:5|max:40',
-'password' => 'confirmed|required|regex:/^[A-Za-z0-9]+$/u|min:8|max:20',*/
-//]);
-
-< !--バリデーションエラー -->
-  {{
-  -- @if ($errors -> any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif--}}
-
-  FormController＝RegisterController
-  postValidates＝registerPost
-  PostRequest＝PostFormRequest
+  @foreach ($subjects as $subject)
+                        <div class="subject">
+                            <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
+                            <label>{{ $subject->subject }}</label>
+                        </div>
+                    @endforeach
