@@ -1,6 +1,9 @@
 suzuki@jp/00000000
 kakashi@jp/00000000(先)
 sato@jp/00000000
+taka@jp/00000000
+
+11/7 30%
 
 //バリデーション
 /*$request->validate([
