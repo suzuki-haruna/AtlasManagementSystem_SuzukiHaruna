@@ -54,6 +54,8 @@
     </div>
     @endforeach
   </div>
+
+  <!-- 検索 -->
   <div class="search_area w-25 border">
     <div class="">
       <div>
@@ -97,7 +99,11 @@
 
             <span>国語</span><input type="checkbox" name="subjects" value="1" form="userSearchRequest">
             <span>数学</span><input type="checkbox" name="subjects" value="2" form="userSearchRequest">
-            <span>英語</span><input type="checkbox" name="subjects" value="3" form="userSearchRequest">
+            <span>英語</span><input type="checkbox" name="subjects[]" value="3" form="userSearchRequest">
+            <br>テスト
+            @foreach($user->subjects as $subjects)
+            <span>{{ $subjects->subject }}</span><input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">
+            @endforeach
 
           </div>
         </div>

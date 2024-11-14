@@ -14,21 +14,20 @@ use App\Searchs\SearchResultFactories;
 class UsersController extends Controller
 {
 
-    public function showUsers(Request $request){
-        $keyword = $request->keyword;
-        $category = $request->category;
-        $updown = $request->updown;
-        $gender = $request->sex;
-        $role = $request->role;
+    public function showUsers(Request $request){ // showUsers(/show/users)を閲覧してる方がブラウザから入力したデータを渡してください
+        $keyword = $request->keyword; // $keyword = "keyword"に入力されたデータを下さい
+        $category = $request->category; // $category = "category"に入力されたデータを下さい
+        $updown = $request->updown; // $updown = "updown"に入力されたデータを下さい
+        $gender = $request->sex; // $gender = "sex"に入力されたデータを下さい
+        $role = $request->role; // $role = "role"に入力されたデータを下さい
 
-        //$user = User::with('subjects')->get();
-        //$subjects = $request->subject_id;
-        $subjects = $request->subjects;
-        //$subjects = $request->users;
-        //$subjects = $request->get('subject');
-        //$subjects = Subjects::with('users')->get();
-        //$subjects = User::with('subjects')->get();
-        //$subjects = null;// ここで検索時の科目を受け取る
+        //$subjects = null; // $subjects = 空 // ここで検索時の科目を受け取る
+        $subjects = $request->subjects; // $subjects = "subjects"に入力されたデータを下さい ☆
+        /*$subjects = [1,2,3]; // $subjects =
+        $query = User::query();
+        $query->whereHas('subjects', function($q) use($subjects)  {
+        $q->orWhereIn('subjects.id', $subjects);
+        });*/
         //ddd($subjects);
         $userFactory = new SearchResultFactories();
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
