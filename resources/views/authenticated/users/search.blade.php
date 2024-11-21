@@ -97,12 +97,10 @@
           <div class="selected_engineer">
             <label>選択科目</label>
 
-            <span>国語</span><input type="checkbox" name="subjects" value="1" form="userSearchRequest">
-            <span>数学</span><input type="checkbox" name="subjects" value="2" form="userSearchRequest">
-            <span>英語</span><input type="checkbox" name="subjects[]" value="3" form="userSearchRequest">
-            <br>テスト
-            @foreach($user->subjects as $subjects)
-            <span>{{ $subjects->subject }}</span><input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">
+            @foreach($subjects as $subject)<!-- 繰り返し(subjects を subject として扱う) -->
+            <span>{{ $subject->subject }}</span>
+            {{--<input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">--}}
+            <!--isset-->
             @endforeach
 
           </div>

@@ -2,6 +2,7 @@ suzuki@jp/00000000
 kakashi@jp/00000000(先)
 sato@jp/00000000
 taka@jp/00000000
+ayu@jp/00000000
 
 11/7 30%
 
@@ -79,4 +80,6 @@ taka@jp/00000000
         return redirect()->route('post.input');
     }
 
-    https://dad-union.com/laravel-textbox-db-update-rdb
+3=sex・subjectsのカラム
+
+{{--<input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">--}}

@@ -22,17 +22,28 @@ class UsersController extends Controller
         $role = $request->role; // $role = "role"に入力されたデータを下さい
 
         //$subjects = null; // $subjects = 空 // ここで検索時の科目を受け取る
-        $subjects = $request->subjects; // $subjects = "subjects"に入力されたデータを下さい ☆
+        $subjects = $request->subjects; // $subjects = "subjects"に入力されたデータを下さい
+        //$subjects = Subjects::find($request->subjects);
+        //$subjects = Subjects::where($request->subjects)->get();
+        //$subjects = "";
+        //$subjects = Subjects::get();
+        //search,array☆
         /*$subjects = [1,2,3]; // $subjects =
         $query = User::query();
         $query->whereHas('subjects', function($q) use($subjects)  {
         $q->orWhereIn('subjects.id', $subjects);
         });*/
         //ddd($subjects);
-        $userFactory = new SearchResultFactories();
+
+        // △
+        $userFactory = new SearchResultFactories(); // $userFactory = SearchResultFactories を作成
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
-        $subjects = Subjects::all();
-        return view('authenticated.users.search', compact('users', 'subjects'));
+        // $users = $userFactory-> (SearchResultFactories)initialize(初期化する)Usersメソッド($keyword, $category, $updown, $gender, $role, $subjects)
+
+        $subjects = Subjects::all(); // $subjects = Subjectsテーブル内の全ての情報を一覧として表示 //Subjects::all();
+        //ddd($subjects);
+
+        return view('authenticated.users.search', compact('users', 'subjects')); // ビューに、authenticated.users.search(blade.php)を表示。$users$subjectsを渡す。
     }
 
     public function userProfile($id){
