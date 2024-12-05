@@ -46,8 +46,8 @@
       <div>
         @if($user->role == 4)
         <span>選択科目 :</span>
-          @foreach($user->subjects as $subjects)
-          <span>{{ $subjects->subject }}</span>
+          @foreach($user->subjects as $subject)
+          <span>{{ $subject->subject }}</span>
           @endforeach
         @endif
       </div>
@@ -97,10 +97,11 @@
           <div class="selected_engineer">
             <label>選択科目</label>
 
-            @foreach($subjects as $subject)<!-- 繰り返し(subjects を subject として扱う) -->
-            <span>{{ $subject->subject }}</span>
-            {{--<input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">--}}
-            <!--isset-->
+            @foreach($subjects as $subjects)<!-- 繰り返し(subjects を subjects として扱う) -->
+            <span>{{ $subjects->subject }}</span><!-- subjects の subjectカラム表示  -->
+            <input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">
+            <!-- フォーム、チェックボックス データセットsubjects[]複数の配列で送る 初期入力値subjectsのid フォームグループuserSearchRequest --><!--☆-->
+            {{-- {{ in_array($subjects->id, $subjectsIds ?? []) ? 'checked' : '' }} --}}
             @endforeach
 
           </div>

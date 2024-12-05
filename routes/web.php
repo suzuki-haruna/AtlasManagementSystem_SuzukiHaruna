@@ -57,8 +57,10 @@ Route::group(['middleware' => 'auth'], function(){
             Route::post('/like/post/{id}', 'PostsController@postLike')->name('post.like');
             Route::post('/unlike/post/{id}', 'PostsController@postUnLike')->name('post.unlike');
         });
-        Route::namespace('Users')->group(function(){
+
+        Route::namespace('Users')->group(function(){ //App\Http\Controllers\Authenticated\Users の名前空間を自動的に参照。//☆
             Route::get('/show/users', 'UsersController@showUsers')->name('user.show');
+            //Route::post('/show/users/search', 'UsersController@search')->name('user.search'); // 追加
             Route::get('/user/profile/{id}', 'UsersController@userProfile')->name('user.profile');
             Route::post('/user/profile/edit', 'UsersController@userEdit')->name('user.edit');
         });

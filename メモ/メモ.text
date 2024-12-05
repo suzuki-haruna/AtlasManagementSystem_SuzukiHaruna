@@ -4,35 +4,6 @@ sato@jp/00000000
 taka@jp/00000000
 ayu@jp/00000000
 
-11/7 30%
-
-<!--テスト-->
-<form enctype="multipart/form-data" action="{{ route('sub.category.create') }}" method="POST">
-@csrf
-
-<div>
-	<label for="main_category_id">部署ID</label>
-        <div>{{$main_category->id}}</div>
-        <input type="hidden" name="main_category_id" value="{{$main_category->id}}">
-</div>
-<!--↑id?-->
-<div>
-	<label for="main_category_name">部署名※</label>
-	<input type="text" id="main_category_name" name="main_category_name" value="{{ old('main_category_name') }}">
-</div>
-
-<ul>
-	<li>
-	<label>所属社員名1</label>
-	<input type="text" name="sub_category_name[]" value="{{ old('sub_category_name.0', $sub_category［0］->sub_category_name ?? '') }}">
-	</li>
-  </ul>
-
-<button type="submit" class="btn-entry">更新</button>
-
-</form>
-<!--/テスト-->
-
 // サブカテゴリー追加
     public function subCategoryCreate(Request $request){
         /*SubCategory::create([
@@ -83,3 +54,7 @@ ayu@jp/00000000
 3=sex・subjectsのカラム
 
 {{--<input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">--}}
+
+コントローラー側でデータを受け取る
+配列を検索できるメソッド
+search
