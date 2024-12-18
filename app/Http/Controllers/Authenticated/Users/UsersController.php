@@ -11,6 +11,8 @@ use App\Models\Users\Subjects;
 use App\Searchs\DisplayUsers;
 use App\Searchs\SearchResultFactories;
 
+//use App\Searchs\SelectIdDetails;
+
 class UsersController extends Controller //Controllerというクラスを継承したUsersControllerというクラス
 {
     public function showUsers(Request $request){ // showUsers(/show/users)を閲覧してる方がブラウザから入力したデータを渡してください
@@ -21,8 +23,8 @@ class UsersController extends Controller //Controllerというクラスを継承
         $role = $request->role; // $role = "role"に入力されたデータを下さい
 
         //$subjects = null; // $subjects = 空 // ここで検索時の科目を受け取る
-        //$subjects = $request->subjects; // $subjects = "subjects"に入力されたデータを下さい
-        $subjects = $request->input('subjects', []); // $subjects = "subjects"に入力されたデータを1つずつ下さい。デフォルト値として空配列[]を代入。
+        $subjects = $request->subjects; // $subjects = "subjects"に入力されたデータを下さい
+        //★$subjects = $request->input('subjects', []); // $subjects = "subjects"に入力されたデータを1つずつ下さい。デフォルト値として空配列[]を代入。
         //$results = Subjects::whereIn('id', $subjects)->get(); // subjects を条件にデータベースから取得
         //$subjects = Subjects::all(); //↓
 
@@ -85,6 +87,12 @@ class UsersController extends Controller //Controllerというクラスを継承
         $userFactory = new SearchResultFactories(); // $userFactory = SearchResultFactories を作成
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
         // $users = $userFactory-> (SearchResultFactories)initialize(初期化する)Usersメソッド($keyword, $category, $updown, $gender, $role, $subjects)
+
+        /*$displayUsers = new DisplayUsers();
+        $users = $displayUsers->resultUsers($keyword, $category, $updown, $gender, $role, $subjects);*/
+
+        /*$SelectIdDetails = new SelectIdDetails;
+        $subjects = $SelectIdDetails->resultUsers($keyword, $category, $updown, $gender, $role, $subjects);*/
 
         $subjects = Subjects::all(); // $subjects = Subjectsテーブル内の全ての情報を一覧として表示 //Subjects::all();
         //ddd($subjects);

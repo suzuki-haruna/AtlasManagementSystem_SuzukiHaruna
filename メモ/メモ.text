@@ -4,53 +4,6 @@ sato@jp/00000000
 taka@jp/00000000
 ayu@jp/00000000
 
-// サブカテゴリー追加
-    public function subCategoryCreate(Request $request){
-        /*SubCategory::create([
-            'sub_category' => $request->sub_category_name,*/
-            //'main_category_id' => MainCategory::id(),
-
-            //部署テーブル：departmentsテーブル（親）を更新
-	$main_category = MainCategory::find($request->id);
-        $main_category->main_category_name = $request->main_category_name;
-        $main_category->save();
-
-	//所属社員名1～5を配列で取得
-        $sub_category_name = $request->get('sub_category');
-
-	//departmentsテーブル（親）のid（主キー）
-        $main_category_id = $request->id;
-
-        //departmentsテーブル（親）のid（主キー）と一致する、所属社員テーブル：employeesテーブル（子）に登録されてる複数レコードを取得
-	$sub_category = Subcategory::where('main_category_id', $main_category_id)->get();
-
-        //所属社員テーブル：employeesテーブル（子）に登録されてる複数レコードの更新・登録・削除処理
-        for($i=0; $i<5; $i++){
-	    //employeesテーブルに登録されてる複数レコード更新（update）
-	    if($i < count($main_category)){
-	            //所属社員名が入力されている場合
-	            if($sub_category_name[$i] != "" && !empty($sub_category[$i])){
-	                $sub_category->sub_category_names = $sub_category_name[$i];
-	            }else{
-			//employeesテーブルに登録されてる複数レコードより入力項目が少ない場合は削除（delete）
-                        Subcategory::where('id', $sub_category[$i]->id)->delete();
-                    }
-            }else{
-
-	            if($sub_category_name[$i] != "" && !empty($sub_category_name[$i])){
-			//employeesテーブルに登録されてる複数レコードより入力項目が多い場合は登録（create）
-        	        $sub_category = New Subcategory;
-                	$sub_category->$main_category_id = $main_category_id;	//departmentsテーブル（親）のid（主キー）を登録
-	                $sub_category->sub_category_names = $sub_category_names[$i];
-        	        $sub_category->save();
-                    }
-            }
-        }
-
-        //]);
-        return redirect()->route('post.input');
-    }
-
 3=sex・subjectsのカラム
 
 {{--<input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">--}}
@@ -58,3 +11,5 @@ ayu@jp/00000000
 コントローラー側でデータを受け取る
 配列を検索できるメソッド
 search
+
+https://blog.capilano-fw.com/?p=665#i-5
