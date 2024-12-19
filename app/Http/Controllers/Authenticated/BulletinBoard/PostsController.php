@@ -46,18 +46,33 @@ class PostsController extends Controller
 
     public function postInput(){
         $main_categories = MainCategory::get();
-        //$sub_categories = SubCategory::get(); // 追加
-        return view('authenticated.bulletinboard.post_create', compact('main_categories')); //'sub_categories'
+        $sub_categories = SubCategory::get(); // 追加
+        return view('authenticated.bulletinboard.post_create', compact('main_categories', 'sub_categories')); //'sub_categories'
     }
 
+//→
     public function postCreate(PostFormRequest $request){
+
+        // 新しい投稿を作成
         $post = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
+
+        //この辺から
+        //$subCategories = $request->input('subCategories', []); // フォームから送信されたサブカテゴリのIDを取得
+        //$subCategories = $request->
+        $subCategories = $request->post_category_id;
+        // 中間テーブルに登録
+        if (!empty($subCategories)) {
+        $post->subCategories()->attach($subCategories);
+        }
+        //ddd($request->all());
+
         return redirect()->route('post.show');
     }
+//←
 
     public function postEdit(Request $request){
         Post::where('id', $request->post_id)->update([
@@ -72,18 +87,29 @@ class PostsController extends Controller
         return redirect()->route('post.show');
     }
 
-    public function mainCategoryCreate(Request $request){
+    public function mainCategoryCreate(Request $request){ //(Request $request)
+        $request->validate([
+              'main_category_name' => 'required|max:100|string|unique:main_categories,main_category',
+        ]);
+
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
     }
 
     // サブカテゴリー追加
     public function subCategoryCreate(Request $request){
-        SubCategory::create([
+        $request->validate([
+              'main_category_id' => 'exists:main_categories,id',
+              'sub_category_name' => 'required|max:100|string|unique:sub_categories,sub_category',
+        ]);
+
+        SubCategory::create([ //☆
             'sub_category' => $request->sub_category_name,
-            //'main_category_id' => $request->main_category_id,
+            //'main_category_id' => $request->sub_category_name,
+            'main_category_id' => $request->main_category_id,
             //'main_category_id' => MainCategory::id(),
         ]);
+        //ddd($request);
         return redirect()->route('post.input');
     }
 
