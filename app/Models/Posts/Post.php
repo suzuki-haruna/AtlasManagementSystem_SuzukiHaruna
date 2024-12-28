@@ -4,6 +4,9 @@ namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
 
+// 追加
+use App\Models\Categories\SubCategory;
+
 class Post extends Model
 {
     const UPDATED_AT = null;

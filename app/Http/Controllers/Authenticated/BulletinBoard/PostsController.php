@@ -60,15 +60,23 @@ class PostsController extends Controller
             'post' => $request->post_body
         ]);
 
+        //$subCategories->posts()->sync($request->input('post_category_id'));
+
         //この辺から
         //$subCategories = $request->input('subCategories', []); // フォームから送信されたサブカテゴリのIDを取得
         //$subCategories = $request->
-        $subCategories = $request->post_category_id;
+//$subCategories = $request->post_category_id;
         // 中間テーブルに登録
-        if (!empty($subCategories)) {
-        $post->subCategories()->attach($subCategories);
-        }
+//if (!empty($subCategories)) {
+//$post->subCategories()->attach($subCategories);
+//}
         //ddd($request->all());
+
+        // サブカテゴリを中間テーブルに登録
+        $subCategories = $request->input('post_category_id', []);
+        if (!empty($subCategories)) {
+            $post->subCategories()->sync($subCategories);
+        }
 
         return redirect()->route('post.show');
     }

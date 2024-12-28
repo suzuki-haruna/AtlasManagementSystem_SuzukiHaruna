@@ -6,10 +6,15 @@ ayu@jp/00000000
 
 3=sex・subjectsのカラム
 
-{{--<input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">--}}
-
 コントローラー側でデータを受け取る
 配列を検索できるメソッド
 search
 
-https://blog.capilano-fw.com/?p=665#i-5
+△https://qiita.com/Ryo9597/items/11de8b8c734122923f45
+
+1つの投稿に複数のカテゴリーがあり、1つのカテゴリーに複数の投稿があります。
+→1つの投稿にカテゴリーは一つしかない!?(カテゴリーとサブカテゴリーという意味では二つある)
+
+Model
+親にhasMany、子にbelongsToを使います。
+→？
