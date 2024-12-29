@@ -7,10 +7,12 @@
         <div class="detail_inner_head">
           <div>
           </div>
+          @if ($post->user_id == Auth::user()->id)
           <div>
             <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}">削除</a>
+            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('この投稿を削除します。よろしいでしょうか？')">削除</a>
           </div>
+          @endif
         </div>
 
         <div class="contributor d-flex">
@@ -52,15 +54,23 @@
     </div>
   </div>
 </div>
+
+<!-- モーダルの中身 -->
 <div class="modal js-modal">
   <div class="modal__bg js-modal-close"></div>
   <div class="modal__content">
     <form action="{{ route('post.edit') }}" method="post">
       <div class="w-100">
         <div class="modal-inner-title w-50 m-auto">
+          @if($errors->first('post_title'))
+          <span class="error_message">{{ $errors->first('post_title') }}</span>
+          @endif
           <input type="text" name="post_title" placeholder="タイトル" class="w-100">
         </div>
         <div class="modal-inner-body w-50 m-auto pt-3 pb-3">
+          @if($errors->first('post_body'))
+          <span class="error_message">{{ $errors->first('post_body') }}</span>
+          @endif
           <textarea placeholder="投稿内容" name="post_body" class="w-100"></textarea>
         </div>
         <div class="w-50 m-auto edit-modal-btn d-flex">
