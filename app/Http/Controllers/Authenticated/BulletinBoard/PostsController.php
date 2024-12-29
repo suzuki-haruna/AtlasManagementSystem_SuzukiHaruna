@@ -82,7 +82,7 @@ class PostsController extends Controller
     }
 //←
 
-    public function postEdit(Request $request){ // Request
+    public function postEdit(Request $request){
         $request->validate([
               'post_title' => 'required|string|max:100',
               'post_body' => 'required|string|max:5000',
@@ -141,7 +141,7 @@ class PostsController extends Controller
         return view('authenticated.bulletinboard.post_myself', compact('posts', 'like'));
     }
 
-    public function likeBulletinBoard(){
+    public function likeBulletinBoard(){ // 【掲示板風】
         $like_post_id = Like::with('users')->where('like_user_id', Auth::id())->get('like_post_id')->toArray();
         $posts = Post::with('user')->whereIn('id', $like_post_id)->get();
         $like = new Like;

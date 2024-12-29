@@ -10,11 +10,23 @@ ayu@jp/00000000
 配列を検索できるメソッド
 search
 
-△https://qiita.com/Ryo9597/items/11de8b8c734122923f45
-
 1つの投稿に複数のカテゴリーがあり、1つのカテゴリーに複数の投稿があります。
 →1つの投稿にカテゴリーは一つしかない!?(カテゴリーとサブカテゴリーという意味では二つある)
 
 Model
 親にhasMany、子にbelongsToを使います。
 →？
+
+<!-- いいね -->
+          <div>
+            @if(Auth::user()->is_Like($post->id)) <!-- もし(ログインユーザー()->is_Like(post->id)) -- User.phpにis_Likeメソッドあり -->
+            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            <!-- この投稿を「いいね」していないとき -->
+            @else
+            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            @endif
+            <button class="like_btn" post_id="{{ $post->id }}">いいね</button>
+            <span class="like_counts like_counts{{ $post->id }}" post_id="{{ $post->id }}">{{ $post->like_counts }}</span>
+            <span class="like_counts{{ $post->id }}">{{ $post->like_counts }}</span>
+            <span>{{ $post->like_counts }}</span>
+          </div>

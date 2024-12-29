@@ -13,13 +13,18 @@
           <div class="mr-5">
             <i class="fa fa-comment"></i><span class=""></span>
           </div>
+
+          <!-- いいね -->
           <div>
-            @if(Auth::user()->is_Like($post->id))
-            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            @if(Auth::user()->is_Like($post->id)) <!-- もし(ログインユーザー()->is_Like(post->id)) -- User.phpにis_Likeメソッドあり -->
+            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i></p>
+            <!-- この投稿を「いいね」していないとき -->
             @else
-            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i></p>
             @endif
           </div>
+          <span class="like_counts{{ $post->id }}">{{ $like->likeCounts($post->id) }}</span>
+
         </div>
       </div>
     </div>
