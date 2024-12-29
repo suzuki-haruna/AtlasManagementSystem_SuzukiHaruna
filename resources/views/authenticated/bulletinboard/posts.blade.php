@@ -11,7 +11,7 @@
       <div class="post_bottom_area d-flex">
         <div class="d-flex post_status">
           <div class="mr-5">
-            <i class="fa fa-comment"></i><span class=""></span>
+            <i class="fa fa-comment"></i><span class="">{{ $post->commentCounts($post->id) }}</span>
           </div>
 
           <!-- いいね -->
