@@ -16,18 +16,54 @@ use Auth;
 
 class PostsController extends Controller
 {
+
+//→
     public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get();
-        $categories = MainCategory::get();
-        $like = new Like;
-        $post_comment = new Post;
+        $posts = Post::with('user', 'postComments')->get(); // $posts = Postモデル('user'と'postComments'のデータを一緒に取得。モデルにはリレーションのみ)->全てのPostレコードを取得。返す。
+        $categories = MainCategory::get(); // $categories = MainCategoryモデル::main_categoriesテーブルの全てのレコードを取得。
+        $sub_categories = SubCategory::all(); // 【追加】
+        $like = new Like; // $like = Likeクラスのテンプレートをもとに、新しいオブジェクトを作成。
+        $post_comment = new Post; // $post_comment = Postクラスのテンプレートをもとに、新しいオブジェクトを作成。
+
+        // 検索にキーワードが入力されていたら
         if(!empty($request->keyword)){
-            $posts = Post::with('user', 'postComments')
-            ->where('post_title', 'like', '%'.$request->keyword.'%')
-            ->orWhere('post', 'like', '%'.$request->keyword.'%')->get();
-        }else if($request->category_word){
-            $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            $posts = Post::with('user', 'postComments', 'subCategories') // $posts = Postモデル('user'と'postComments'のデータを一緒に取得。)＋ 'subCategories'追加。
+            ->where('post_title', 'like', '%'.$request->keyword.'%') // ->条件追加(posts'post_title'カラム：部分一致検索)
+            ->orWhere('post', 'like', '%'.$request->keyword.'%') // ->条件追加、または(posts'post'カラム：部分一致検索)
+            //->orWhere('sub_category', 'like', '%'.$request->keyword.'%') // 【追加】サブカテゴリー
+            ->orWhereHas('subCategories', function ($query) use ($request) {
+            $query->where('sub_category', $request->keyword);
+            })
+            ->get(); // 結果を取得。
+
+        // カテゴリーがクリックされたら
+        /*}else if($request->category_word){
+            $sub_category = $request->category_word; // $sub_category = category_wordから送信されたリクエストデータを取得。
+            $posts = Post::with('user', 'postComments', 'subCategories')
+
+            ->whereHas('subCategories', function ($query) use ($sub_category) {
+            $query->where('sub_category', $sub_category); // サブカテゴリーが一致する投稿を取得
+        })
+
+            ->get(); // $posts = Postモデル('user'と'postComments'のデータを一緒に取得。)->全てのPostレコードを取得。返す。*/
+
+        /*}else if ($request->has('category_word')) {
+            $categoryId = $request->category_word;
+            $posts = Post::with('user', 'postComments', 'subCategories')
+            ->whereHas('subCategories', function ($query) use ($categoryId) {
+            $query->where('id', $categoryId);
+        })
+        ->get();*/
+
+        }else if ($request->filled('category_word')) {
+            $categoryId = $request->category_word;
+            //ddd($request->all());
+            $posts = Post::with('user', 'postComments', 'subCategories')
+            ->whereHas('subCategories', function ($query) use ($categoryId) {
+            $query->where('sub_categories.id', $categoryId);
+        })
+        ->get();
+
         }else if($request->like_posts){
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
@@ -36,8 +72,10 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+        //ddd($sub_categories);
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment', 'sub_categories')); // sub_categories追加
     }
+//←
 
     public function postDetail($post_id){
         $post = Post::with('user', 'postComments')->findOrFail($post_id);

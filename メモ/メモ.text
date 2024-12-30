@@ -6,9 +6,9 @@ ayu@jp/00000000
 
 3=sex・subjectsのカラム
 
-コントローラー側でデータを受け取る
-配列を検索できるメソッド
-search
+コントローラー側でデータを受け取る/配列を検索できるメソッド/search
+
+★
 
 1つの投稿に複数のカテゴリーがあり、1つのカテゴリーに複数の投稿があります。
 →1つの投稿にカテゴリーは一つしかない!?(カテゴリーとサブカテゴリーという意味では二つある)
@@ -30,3 +30,8 @@ Model
             <span class="like_counts{{ $post->id }}">{{ $post->like_counts }}</span>
             <span>{{ $post->like_counts }}</span>
           </div>
+
+<li class="" category_id="{{ $sub_category->id }}">
+          <a href="{{ route('post.show', ['category_word' => $sub_category->id]) }}">{{ $sub_category->sub_category }}</a>
+<input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->id }}" form="postSearchRequest">
+          <span>{{ $sub_category->sub_category }}</span></li><!--CSSてきとーとりあえずで-->

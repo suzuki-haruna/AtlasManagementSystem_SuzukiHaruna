@@ -14,6 +14,7 @@ class MainCategory extends Model
 
     public function subCategories(){
         return $this->hasMany('App\Models\Categories\SubCategory');
+        //return $this->hasMany(SubCategory::class, 'main_category_id');
         //return $this->hasMany(SubCategory::class, 'sub_category',);// リレーションの定義
         // main_category_id 以外の外部キーに（sub_category を外部キーに指定）したい時
     }

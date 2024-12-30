@@ -39,11 +39,33 @@
       </div>
       <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
       <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
+
+      <!-- 検索：カテゴリー -->
+        <!--あとで使うかも/CSSてきとーとりあえずコピペ-->
+        <!--<p class="m-0 search_conditions"><span>カテゴリー検索</span></p>
+        <div class="search_conditions_inner">
+          <div>
+            <label>性別</label>
+            <span>男</span><input type="radio" name="sex" value="1" form="userSearchRequest">
+            <span>女</span><input type="radio" name="sex" value="2" form="userSearchRequest">
+            <span>その他</span><input type="radio" name="sex" value="3" form="userSearchRequest">
+          </div>
+          </div>-->
       <ul>
         @foreach($categories as $category)
-        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
+        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}</span><!--main_categories js-->
+          <ul>
+          @foreach($sub_categories->where('main_category_id', $category->id) as $sub_category)
+          <li>
+            <button type="submit" name="category_word" value="{{ $sub_category->id }}" form="postSearchRequest" class="category_btn">
+            {{ $sub_category->sub_category }}</button>
+          </li>
+          @endforeach
+          </ul>
+        </li>
         @endforeach
       </ul>
+
     </div>
   </div>
   <form action="{{ route('post.show') }}" method="get" id="postSearchRequest"></form>
