@@ -63,8 +63,26 @@ class CalendarView{
 
         if(in_array($day->everyDay(), $day->authReserveDay())){ // if①予約された日付：第1引数が配列内に存在する場合にtrueを返す($day->everyDay日付, $day->authReserveDay認証された予約日 のリストを取得＝$day->everyDayの返す日付が$day->authReserveDayのリストに含まれている場合、この条件はtrueを返す。
           $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part; // $reservePart = $day->authReserveDate($day->everyDay)指定された日付に関連する予約情報を取得->取得されたコレクションのうち最初のレコードを返す->最初のレコードからsetting_part属性の値を取得
-          $reserveId = ReserveSettings::with('users')->get(); // 追加/中間テーブルのデータを含む予約データを取得
-          $dataReserve = $day->everyDay();
+          $dataReserve = $day->everyDay(); // 日付を現在のループの日付と一致させる
+
+          // 中間テーブルreserve_setting_usersのID取得
+          //$reserveId = ReserveSettings::with('users')->get(); // 追加/中間テーブルのデータを含む予約データを取得
+          /*$reserveId = ReserveSettings::with('users')
+            ->where('setting_reserve', $dataReserve)
+            ->where('setting_part', $reservePart)
+            ->first();*/
+            $reserveSettingUser = \DB::table('reserve_setting_users')
+            ->join('reserve_settings', 'reserve_setting_users.reserve_setting_id', '=', 'reserve_settings.id')
+            ->where('reserve_settings.setting_reserve', $dataReserve)
+            ->where('reserve_settings.setting_part', $reservePart)
+            ->where('reserve_setting_users.user_id', Auth::id())
+            ->select('reserve_setting_users.id') // 中間テーブルのIDを取得
+            ->first();
+            if ($reserveSettingUser) {
+            $reserveId = $reserveSettingUser->id; // 中間テーブルのID
+            } else {
+            $reserveId = null; // 該当するデータがない場合
+            }
 
           // 追加分岐
           if($day->everyDay()){
@@ -108,33 +126,30 @@ class CalendarView{
           }else{
             //$html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
             //$html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
-            //ddd($reservePart);
+            // ddd($reservePart);
 
             //〇$html[] = '<a href="' . route('deleteParts', ['id' => $reserveId->first()->id]) . '" class="btn btn-danger p-0 w-75" style="font-size:12px" onclick="return confirm(\'予約日：' . $reserveId->first()->setting_reserve . '\n 時間：'. $reservePart .'\n 上記の予約をキャンセルしてもよろしいですか？\')">'. $reservePart .'</a>';
-            /*$html[] = '<a href="' . route('deleteParts', ['id' => $reserveId->first()->id]) . '" class="open-modal btn btn-danger p-0 w-75" style="font-size:12px"
-            data-id="' . $reserveId->first()->id . '"
-            data-reserve="' . $reserveId->first()->setting_reserve . '"
-            data-part="' . $reservePart . '">
-            '. $reservePart .'</a>';*/
-            // a href="#"!?/class="open-modalはjs用
+
             $html[] = '<a href="#" class="open-modal btn btn-danger p-0 w-75" style="font-size:12px"
-            data-id="' . $reserveId->first()->id . '"
+            data-id="' . $reserveId . '"
             data-reserve="' . $dataReserve . '"
             data-part="' . $reservePart . '">
-            '. $reservePart .'</a>';
+            '. $reservePart .'</a>'; // ✕$reserveId->first()->id(reserve_setting_usersテーブルの一番上から順番に削除されてしまう)
+            // a href="#"!?/class="open-modalはjs用
 
-            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
-            //deleteParts/data-reserve="' . $reserveId->first()->setting_reserve . '"
+            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">'; // これがないと予約するときエラーなる
+            // authReserveDate認証ユーザーが予約した日か確認($reserveDate),deleteParts,getPart,(name="delete_date"どこにも存在しない)/data-reserve="' . $reserveId->first()->setting_reserve . '"
             //ddd($reserveId);
 
             // モーダル：予約キャンセル
             $html[] = '<div id="custom-modal" class="modal"><div class="modal-content"><p id="modal-message"></p>
             <button id="cancel-button" class="btn btn-secondary">閉じる</button>
             <button id="confirm-button" class="btn btn-danger">キャンセル</button></div></div>';
-            // class="modal"はCSS用
+            // custom-modalはJs用/class="modal""modal-content"はCSS用
+
           }
         }
-//★
+ //★
         // 参加しなかった日//追加
         /*else{
           if ($day->everyDay() < $this->carbon->copy()->format("Y-m-d")) {…}
@@ -163,7 +178,7 @@ class CalendarView{
     $html[] = '</table>';
     $html[] = '</div>';
     $html[] = '<form action="/reserve/calendar" method="post" id="reserveParts">'.csrf_field().'</form>';
-    $html[] = '<form action="/delete/calendar" method="post" id="deleteParts">'.csrf_field().'</form>';
+    $html[] = '<form action="/delete/calendar" method="post" id="deleteParts">'.csrf_field().'</form>'; // '. route('deleteParts') .'
 
     return implode('', $html);
   }

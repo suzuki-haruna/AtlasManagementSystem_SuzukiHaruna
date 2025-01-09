@@ -42,35 +42,49 @@ class CalendarsController extends Controller
     }
 
     // 追加
-    public function delete(Request $request){ //($id){
-        $reserveId = ReserveSettings::with('users')->get(); // 追加/中間テーブルのデータを含む予約データを取得
-
-
-        //ReserveSettings::findOrFail($id)->delete();*/
-
-        /*\DB::table('reserve_setting_users')
-      ->where('reserve_setting_users.id', $id)
-      ->delete();
-
-      $user_id = Auth::user()->id;*/
-
-      /*$reserveSetting = ReserveSettings::findOrFail($id);
-      $reserveSetting->delete();*/
-
-      // 指定されたIDのレコードをreserve_setting_usersテーブルから削除
-    \DB::table('reserve_setting_users')->where('id', $id)->delete();
+    public function delete(Request $request){
 
     // リクエストから必要なデータを取得
-    /*$reserveId = $request->input('id');
-    $reservePart = $request->input('part');
+    $reserveId = $request->input('id');
+    /*$reserveDate = $request->input('setting_reserve'); // 開講日/$dataReserve
+    $reservePart = $request->input('setting_part'); // 部*/
+
+    // reserve_settings テーブルから該当する予約を検索
+    /*$reserveSetting = ReserveSettings::where('setting_reserve', $reserveDate)
+        ->where('setting_part', $reservePart)
+        ->first();*/
 
     // 条件に基づいてレコードを削除
-    DB::table('reserve_setting_users')
-        ->where('id', $reserveId)
-        ->where('setting_part', $reservePart)
+    /*\DB::table('reserve_setting_users')
+        ->where('reserve_setting_id', $reserveSetting->id)
+        ->where('user_id', Auth::id()) // 現在のユーザーに限定
         ->delete();*/
+        $deleted = \DB::table('reserve_setting_users')
+        ->where('id', $reserveId)
+        ->where('user_id', Auth::id())
+        ->delete();
 
+        // 削除成功時
+    if ($deleted) {
+        return response()->json([
+            'success' => true,
+            'message' => '予約をキャンセルしました。'
+        ]);
+    }
 
-        return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);//, compact('reserveId'));
+    // 削除失敗時
+    return response()->json([
+        'success' => false,
+        'message' => '削除できませんでした。'
+    ]);
+
+    //ReserveSettings::findOrFail($request)->delete();//$id
+
+    // ここから下。このくらい短くても良いかもしれない。
+    /*$reserveId = ReserveSettings::find($request->input('id'));
+    $reserveId->delete();*/
+
+    //〇return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
+
     }
 }

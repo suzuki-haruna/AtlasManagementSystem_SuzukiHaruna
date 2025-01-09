@@ -87,8 +87,9 @@ class CalendarWeekDay{
      return Auth::user()->reserveSettings->pluck('setting_reserve')->toArray();
    }
 
-   function authReserveDate($reserveDate){
-     return Auth::user()->reserveSettings->where('setting_reserve', $reserveDate);
+   // 認証ユーザーが予約した日(ログイン中のユーザーが指定した日付の予約を持っているかどうか確認するために使える)
+   function authReserveDate($reserveDate){ //$reserveDateここにしか存在しない
+     return Auth::user()->reserveSettings->where('setting_reserve', $reserveDate); // reserveSettingsモデル
    }
 
 }

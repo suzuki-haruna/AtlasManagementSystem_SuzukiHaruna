@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function(){
             Route::namespace('General')->group(function(){
                 Route::get('/calendar/{user_id}', 'CalendarsController@show')->name('calendar.general.show');
                 Route::post('/reserve/calendar', 'CalendarsController@reserve')->name('reserveParts');
+                Route::get('/delete/calendar', 'CalendarsController@delete')->name('deleteParts'); // 追加!?
                 Route::post('/delete/calendar', 'CalendarsController@delete')->name('deleteParts'); // 予約キャンセル
                 //Route::get('/delete/calendar/{id}', 'CalendarsController@delete')->name('deleteParts');
             });
