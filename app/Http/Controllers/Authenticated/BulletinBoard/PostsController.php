@@ -19,7 +19,8 @@ class PostsController extends Controller
 
 //→
     public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get(); // $posts = Postモデル('user'と'postComments'のデータを一緒に取得。モデルにはリレーションのみ)->全てのPostレコードを取得。返す。
+        $posts = Post::with('user', 'postComments')->get(); // $posts = Postモデル('user'と'postComments'のデータを一緒に取得。モデルにはリレーションのみ)->全てのPostレコードを取得。返す。/追加mainCategory
+        //ddd($posts);
         $categories = MainCategory::get(); // $categories = MainCategoryモデル::main_categoriesテーブルの全てのレコードを取得。
         $sub_categories = SubCategory::all(); // 【追加】
         $like = new Like; // $like = Likeクラスのテンプレートをもとに、新しいオブジェクトを作成。
@@ -36,7 +37,7 @@ class PostsController extends Controller
             })
             ->get(); // 結果を取得。
 
-        // カテゴリーがクリックされたら
+            // カテゴリーがクリックされたら
         /*}else if($request->category_word){
             $sub_category = $request->category_word; // $sub_category = category_wordから送信されたリクエストデータを取得。
             $posts = Post::with('user', 'postComments', 'subCategories')
@@ -73,7 +74,7 @@ class PostsController extends Controller
             ->where('user_id', Auth::id())->get();
         }
         //ddd($sub_categories);
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment', 'sub_categories')); // sub_categories追加
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment','sub_categories')); // sub_categories,mainCategory追加
     }
 //←
 

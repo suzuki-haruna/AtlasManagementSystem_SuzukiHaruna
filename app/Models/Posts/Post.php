@@ -33,6 +33,12 @@ class Post extends Model
         return $this->belongsToMany(SubCategory::class, 'post_sub_categories', 'post_id', 'sub_category_id'); // リレーションの定義
     }
 
+    // 追加/投稿に関連したメインカテゴリー表示用
+    /*public function mainCategory()
+    {
+        return $this->belongsTo(MainCategory::class, 'main_category_id');
+    }*/
+
     // コメント数
     public function commentCounts($post_id){
         return PostComment::where('post_id', $post_id)->count(); // 件数の取得

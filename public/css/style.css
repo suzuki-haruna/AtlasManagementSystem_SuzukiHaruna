@@ -103,26 +103,41 @@ label {
   background: #FFF;
 }
 
-/* サイドバー */
+/* 【サイドバー】 */
 .sidebar {
-  width: 150px;
+  width: 200px;
   height: 100vh;
-  background-color: #03AAD2;
+  background: #03AAD2;
   font-weight: bold;
+  padding: 20px 10px;
 }
 
 .main-container {
   width: 100%;
 }
 
+.sidebar p {
+  background: #03AAD2;
+}
+
 .sidebar p a {
   color: #FFF;
 }
 
+/* アイコン */
+.bi {
+  background: #03AAD2;
+  color: fff;
+  font-size: 20px;
+  margin: 5px;
+}
+
 /* トップページ */
 .user_status {
-  border-radius: 10px;
+  margin: 100px auto;
   background: #FFF;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
 }
 
 .user_status p {
@@ -272,7 +287,15 @@ label {
   width: 60%;
 }
 
-/* 掲示板 */
+/* 【掲示板】 */
+.post_view {
+  background: #ecf1f6;
+}
+
+.post_view i {
+  background: #fff;
+}
+
 .sub_categories {
   display: none;
 }
@@ -297,8 +320,35 @@ label {
   border-radius: 10px;
 }
 
+.post_area p {
+  background: #FFF;
+}
+
+.post_area span {
+  background: #FFF;
+}
+
 .post_bottom_area {
   justify-content: space-between;
+  background: #FFF;
+}
+
+.post_status {
+  background: #FFF;
+}
+
+.post_status span {
+  background: #FFF;
+}
+
+.post_user {
+  color: #999;
+  font-weight: 500;
+}
+
+.posts {
+  color: #000;
+  font-weight: 500;
 }
 
 .like_btn,
@@ -314,6 +364,10 @@ label {
 .error_message {
   font-size: 12px;
   color: red;
+  background: #FFF;
+}
+
+.mr-5 {
   background: #FFF;
 }
 
@@ -444,3 +498,5 @@ label {
 .subject_inner {
   display: none;
 }
+
+/*灰(濃)#999*/
