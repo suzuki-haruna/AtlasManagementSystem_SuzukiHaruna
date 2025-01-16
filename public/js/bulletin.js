@@ -1,7 +1,8 @@
 $(function () {
-  $('.main_categories').click(function () {
-    var category_id = $(this).attr('category_id');
-    $('.category_num' + category_id).slideToggle();
+  // カテゴリー検索
+  $('.main_categories').click(function () { // クラスmain_categoriesがクリックされたときに実行
+    var category_id = $(this).attr('category_id'); // 現在クリックされた要素(this)のcategory_id属性の値を取得してcategory_id変数に代入
+    $('.category_num' + category_id).slideToggle(); // 要素に対して表示・非表示を切り替えるアニメーションを実行
   });
 
   // いいね

@@ -38,14 +38,16 @@
   </div>
 
   <div class="other_area w-25">
-    <div class="m-4">
-      <div class=""><a href="{{ route('post.input') }}" class="post_link">投稿</a></div>
-      <div class="">
-        <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
-        <input type="submit" value="検索" form="postSearchRequest">
+    <div class="other_medium">
+      <a href="{{ route('post.input') }}" class="post_link">投稿</a>
+      <div class="other_keyword">
+        <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest" class="other_keyword_text">
+        <input type="submit" value="検索" form="postSearchRequest" class="other_keyword_submit">
       </div>
-      <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
-      <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
+      <div class="other_mylike">
+        <input type="submit" name="like_posts" value="いいねした投稿" form="postSearchRequest" class="other_like">
+        <input type="submit" name="my_posts" value="自分の投稿" form="postSearchRequest" class="other_my">
+      </div>
 
       <!-- 検索：カテゴリー -->
         <!--あとで使うかも/CSSてきとーとりあえずコピペ-->
@@ -58,20 +60,25 @@
             <span>その他</span><input type="radio" name="sex" value="3" form="userSearchRequest">
           </div>
           </div>-->
-      <ul>
-        @foreach($categories as $category)
-        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}</span><!--main_categories js-->
+      <div class="other_category">
+        <span>カテゴリー検索</span>
+        <div class="category_search">
           <ul>
-          @foreach($sub_categories->where('main_category_id', $category->id) as $sub_category)
-          <li>
-            <button type="submit" name="category_word" value="{{ $sub_category->id }}" form="postSearchRequest" class="category_btn">
-            {{ $sub_category->sub_category }}</button>
-          </li>
-          @endforeach
+            @foreach($categories as $category)
+            <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}</span><!--main_categories js-->
+              <ul>
+                @foreach($sub_categories->where('main_category_id', $category->id) as $sub_category)
+                <li>
+                <button type="submit" name="category_word" value="{{ $sub_category->id }}" form="postSearchRequest" class="category_num{{ $category->id }} category_btn" style="display:none;">
+                {{ $sub_category->sub_category }}</button>
+                </li>
+                @endforeach
+              </ul>
+            </li>
+            @endforeach
           </ul>
-        </li>
-        @endforeach
-      </ul>
+        </div>
+      </div>
 
     </div>
   </div>

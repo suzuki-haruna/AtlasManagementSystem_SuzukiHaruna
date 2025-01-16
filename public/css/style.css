@@ -390,14 +390,93 @@ label {
   background: #FFF;
 }
 
-/* 【掲示板：左】 */
+/* 【掲示板：右】 */
+
+.other_area {
+  margin-top: 3rem;
+  /*!important;*/
+}
+
+.other_area a:hover {
+  text-decoration: none;
+}
+
+.other_medium {
+  width: 90%;
+}
 
 .post_link {
   display: block;
   width: 100%;
+  padding: 5px;
+  text-align: center;
   background: #03AAD2;
   color: #FFF;
   border-radius: 8px;
+}
+
+.other_keyword {
+  width: 100%;
+  margin-top: 30px;
+  background: #03AAD2;
+  border-radius: 8px;
+}
+
+.other_keyword_text {
+  width: 70%;
+  height: 35px;
+  border: 2px solid #ddd;
+  border-radius: 8px 0 0 8px;
+}
+
+.other_keyword_submit {
+  width: 25%;
+  height: 35px;
+  background: #03AAD2;
+  color: #fff;
+  border: 0;
+  border-radius: 0 8px 8px;
+}
+
+.other_mylike {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 35px;
+  margin-top: 30px;
+}
+
+.other_like {
+  background: #E38EAB;
+  color: #fff;
+  margin: 1px;
+  border: none;
+  border-radius: 8px;
+}
+
+.other_my {
+  background: #EBBC5D;
+  color: #fff;
+  margin: 1px;
+  border: none;
+  border-radius: 8px;
+}
+
+.category_btn {
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 0 5px;
+  border: none;
+  background: #999;
+  color: #FFF;
+}
+
+.other_category {
+  margin-top: 30px;
+}
+
+.category_search {
+  margin-top: 10px;
 }
 
 /* 掲示板 詳細画面 */
@@ -468,19 +547,15 @@ label {
   color: #FFF;
 }
 
-.category_btn {
-  font-size: 12px;
-  border-radius: 5px;
-  padding: 0 5px;
-  border: none;
-  background: #999;
-  color: #FFF;
-}
-
 .main_categories span,
 .sub_categories li input {
   list-style: none;
   cursor: pointer;
+}
+
+.main_categories {
+  width: 100%;
+  border-bottom: 2px solid #999;
 }
 
 /* ユーザー検索 */
@@ -524,4 +599,4 @@ label {
   display: none;
 }
 
-/*水#03AAD2/灰(濃)#999*/
+/*水#03AAD2/灰(濃)#999/桃#E38EAB/黄#EBBC5D*/
