@@ -64,7 +64,8 @@ class CalendarsController extends Controller
         ->where('user_id', Auth::id())
         ->delete();
 
-        // 削除成功時
+    // response消してもよい
+    // 削除成功時
     if ($deleted) {
         return response()->json([
             'success' => true,

@@ -14,7 +14,7 @@ $(function () {
     // 変数count：この変数には取得したテキストの値が代入される = $(クラスlike_counts + post_id).<span>テキスト内容取得</span>
     var countInt = Number(count); // 変数countInt：countの値を数値型に変換したものが代入される = (count)を数値型に変換
     $.ajax({
-      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }, // <meta name="csrf-token">タグをjQueryで選択、sidebarにあり.content属性の値(CSRFトークン)を取得。//☆
       method: "post",
       url: "/like/post/" + post_id,
       data: {

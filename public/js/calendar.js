@@ -23,22 +23,27 @@ $(document).ready(function () { // $(ドキュメント全体の準備が整っ�
     // 確認ボタンのクリック動作
     $('#confirm-button').off('click').on('click', function () {
       // サーバーへ削除リクエストを送信
-      $.post("<?= route('deleteParts') ?>", {
-        id: reserveId,
-        setting_reserve: reserveDate,
-        setting_part: reservePart,
-        _token: "<?= csrf_token() ?>"
-      }, function (response) { // あとでresponse消す→}).done(function () {
-        // 成功
-        $('#custom-modal').hide();
-        location.reload(); // ページをリロードして更新
-      }).fail(function (xhr) {// response消す→　}).fail(function () {
-        // エラー/response消す→ここからalertまで無くて良い
-        let errorMessage = '失敗';
-        if (xhr.responseJSON && xhr.responseJSON.message) {
-          errorMessage = xhr.responseJSON.message; // サーバーからのエラーメッセージを取得
+
+      $.ajax({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        method: "post",
+        url: "/delete/calendar/",
+        data: {
+          id: reserveId,
+          setting_reserve: reserveDate,
+          setting_part: reservePart,
+        }, success: function (response) { // あとでresponse消す!?→}).done(function () {
+          // 成功
+          $('#custom-modal').hide();
+          location.reload(); // ページをリロードして更新
+        }, error: function (xhr) {// response消す→　}).fail(function () {
+          // エラー/response消す→ここからalertまで無くて良い
+          let errorMessage = '失敗';
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            errorMessage = xhr.responseJSON.message; // サーバーからのエラーメッセージを取得
+          }
+          alert(errorMessage);
         }
-        alert(errorMessage);
       });
     });
 
