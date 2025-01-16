@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 // 追加
 use App\Models\Categories\SubCategory;
+use App\Models\Categories\MainCategory;
 
 class Post extends Model
 {
@@ -38,6 +39,17 @@ class Post extends Model
     {
         return $this->belongsTo(MainCategory::class, 'main_category_id');
     }*/
+    public function mainCategory(){
+        return $this->hasOneThrough(
+            \App\Models\Categories\MainCategory::class, // 最終的に取得するターゲットモデル
+            \App\Models\Categories\SubCategory::class, // 中間のモデル
+            //'post_id',           // SubCategory テーブルの外部キー
+            'id',                // SubCategoryの外部キー
+            'id',                // MainCategoryの外部キー
+            'sub_category_id',   // Postのサブカテゴリーの外部キー
+            'main_category_id'   // SubCategoryのメインカテゴリーの外部キー
+        );
+    }
 
     // コメント数
     public function commentCounts($post_id){

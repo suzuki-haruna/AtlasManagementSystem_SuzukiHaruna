@@ -29,7 +29,7 @@ class CalendarWeekDay{
    }
 
    function selectPart($ymd){
-//$currentDate = now()->format('Y-m-d'); // 現在の日付を取得
+      $currentDate = now()->format('Y-m-d'); // 追加/現在の日付を取得
      $one_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
      $two_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
      $three_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
@@ -50,9 +50,13 @@ class CalendarWeekDay{
      }
 
      $html = [];
-//if ($ymd < $currentDate) {
-//$html[] = '<p>受付終了</p>'; // 過去の日付には受付終了を表示
-//} else {
+
+     // 追加
+      if ($ymd <= $currentDate) {
+      $html[] = '<p>受付終了</p>'; // 過去の日付には受付終了を表示
+      $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+      } else {
+
      $html[] = '<select name="getPart[]" class="border-primary" style="width:70px; border-radius:5px;" form="reserveParts">';
      $html[] = '<option value="" selected></option>';
      if($one_part_frame == "0"){
@@ -70,8 +74,9 @@ class CalendarWeekDay{
      }else{
        $html[] = '<option value="3">リモ3部(残り'.$three_part_frame.'枠)</option>';
      }
+
      $html[] = '</select>';
-//}
+      }//ddd($html);
      return implode('', $html);
    }
 

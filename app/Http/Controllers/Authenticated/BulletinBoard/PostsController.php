@@ -19,7 +19,7 @@ class PostsController extends Controller
 
 //→
     public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get(); // $posts = Postモデル('user'と'postComments'のデータを一緒に取得。モデルにはリレーションのみ)->全てのPostレコードを取得。返す。/追加mainCategory
+        $posts = Post::with('user', 'postComments', 'subCategories', 'mainCategory')->get(); // $posts = Postモデル('user'と'postComments'のデータを一緒に取得。モデルにはリレーションのみ)->全てのPostレコードを取得。返す。/追加subCategories,mainCategory
         //ddd($posts);
         $categories = MainCategory::get(); // $categories = MainCategoryモデル::main_categoriesテーブルの全てのレコードを取得。
         $sub_categories = SubCategory::all(); // 【追加】
@@ -73,8 +73,9 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('user_id', Auth::id())->get();
         }
+        //ddd($posts);
         //ddd($sub_categories);
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment','sub_categories')); // sub_categories,mainCategory追加
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment','sub_categories')); // sub_categories追加
     }
 //←
 

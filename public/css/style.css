@@ -287,7 +287,7 @@ label {
   width: 60%;
 }
 
-/* 【掲示板】 */
+/* 【掲示板：左】 */
 .post_view {
   background: #ecf1f6;
 }
@@ -329,7 +329,6 @@ label {
 }
 
 .post_bottom_area {
-  justify-content: space-between;
   background: #FFF;
 }
 
@@ -339,6 +338,7 @@ label {
 
 .post_status span {
   background: #FFF;
+  font-size: 12px;
 }
 
 .post_user {
@@ -351,9 +351,27 @@ label {
   font-weight: 500;
 }
 
+.tag {
+  background: #03AAD2;
+  color: #FFF;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.post_icon {
+  margin-left: auto;
+  background: #FFF;
+}
+
+.like_icon {
+  display: inline-block;
+  background: #FFF;
+}
+
 .like_btn,
 .un_like_btn {
   cursor: pointer;
+  color: #999;
 }
 
 .un_like,
@@ -368,7 +386,18 @@ label {
 }
 
 .mr-5 {
+  display: inline-block;
   background: #FFF;
+}
+
+/* 【掲示板：左】 */
+
+.post_link {
+  display: block;
+  width: 100%;
+  background: #03AAD2;
+  color: #FFF;
+  border-radius: 8px;
 }
 
 /* 掲示板 詳細画面 */
@@ -422,10 +451,6 @@ label {
 }
 
 .comment_container span {
-  font-size: 12px;
-}
-
-.post_status span {
   font-size: 12px;
 }
 
@@ -499,4 +524,4 @@ label {
   display: none;
 }
 
-/*灰(濃)#999*/
+/*水#03AAD2/灰(濃)#999*/

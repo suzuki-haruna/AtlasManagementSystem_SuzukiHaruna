@@ -8,33 +8,38 @@
       <p class="post_user"><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
       <p><a href="{{ route('post.detail', ['id' => $post->id]) }}" class="posts">{{ $post->post_title }}</a></p>
       <div class="post_bottom_area d-flex">
-        <div class="d-flex post_status">
 
-          <p>{{-- $categories ここにメインカテゴリー表示 --}}</P>
+          @foreach($post->subCategories as $subCategory)
+          {{-- サブカテゴリー <p>{{ $subCategory->sub_category }}</p> --}}
+          @if($subCategory->mainCategory)
+          <div class="tag">{{ $subCategory->mainCategory->main_category }}</div><!-- メインカテゴリー -->
+          @endif
+          @endforeach
 
-          <div class="mr-5">
-            <i class="fa fa-comment"></i><span>{{ $post->commentCounts($post->id) }}</span>
+          <div class="post_icon">
+            <div class="mr-5">
+              <i class="fa fa-comment" style="color: #999;"></i><span>{{ $post->commentCounts($post->id) }}</span>
+            </div>
+            <!-- いいね -->
+            <div class="like_icon">
+              @if(Auth::user()->is_Like($post->id)) <!-- もし(ログインユーザー()->is_Like(post->id)) -- User.phpにis_Likeメソッドあり -->
+              <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
+              <!-- この投稿を「いいね」していないとき -->
+              @else
+              <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
+              @endif
+              <span class="like_counts{{ $post->id }}">{{ $like->likeCounts($post->id) }}</span>
+            </div>
           </div>
 
-          <!-- いいね -->
-          <div>
-            @if(Auth::user()->is_Like($post->id)) <!-- もし(ログインユーザー()->is_Like(post->id)) -- User.phpにis_Likeメソッドあり -->
-            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i></p>
-            <!-- この投稿を「いいね」していないとき -->
-            @else
-            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i></p>
-            @endif
-          </div>
-          <span class="like_counts{{ $post->id }}">{{ $like->likeCounts($post->id) }}</span>
-
-        </div>
       </div>
     </div>
     @endforeach
   </div>
-  <div class="other_area border w-25">
-    <div class="border m-4">
-      <div class=""><a href="{{ route('post.input') }}">投稿</a></div>
+
+  <div class="other_area w-25">
+    <div class="m-4">
+      <div class=""><a href="{{ route('post.input') }}" class="post_link">投稿</a></div>
       <div class="">
         <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
         <input type="submit" value="検索" form="postSearchRequest">
