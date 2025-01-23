@@ -31,28 +31,24 @@ class CalendarWeekDay{
     $three_part = ReserveSettings::withCount('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
 
 //→
-    $html[] = '<div class="text-left">';
-
-    $html[] = '<table class="reservation_table">';
+    $html[] = '<table border="0" class="reservation_table">';
 
     if($one_part){
       // $html[] = '<p class="day_part m-0 pt-1">1部</p>';
-      $html[] = '<tr class="day_part m-0 pt-1""><td class="calendar_part"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 1]) . '">1部</a></td>
+      $html[] = '<tr class="day_part"><td class="calendar_part"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 1]) . '" style="color:#03AAD2;">1部</a></td>
       <td class="calendar_parts">'. $one_part->users_count . '</td></tr>';
     }
 
     if($two_part){
-      $html[] = '<tr class="day_part m-0 pt-1"><td class="calendar_part"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 2]) . '">2部</a></td>
+      $html[] = '<tr class="day_part"><td class="calendar_part"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 2]) . '" style="color:#03AAD2;">2部</a></td>
       <td class="calendar_parts">'.$two_part->users_count . '</td></tr>';
     }
     if($three_part){
-      $html[] = '<tr class="day_part m-0 pt-1"><td class="calendar_part"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 3]) . '">3部</a></td>
+      $html[] = '<tr class="day_part"><td class="calendar_part"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 3]) . '" style="color:#03AAD2;">3部</a></td>
       <td class="calendar_parts">'. $three_part->users_count . '</td></tr>';
     }
 
     $html[] = '</table>';
-
-    $html[] = '</div>';
 //←
 
     return implode("", $html); // HTML文字列を返す

@@ -165,22 +165,40 @@ label {
   color: #ff0000;
 }
 
+.day-mon {
+  background: #FFF;
+}
+
+.day-tue {
+  background: #FFF;
+}
+
+.day-wed {
+  background: #FFF;
+}
+
+.day-thu {
+  background: #FFF;
+}
+
+.day-fri {
+  background: #FFF;
+}
+
 .day-sat {
   color: #0000FF;
+  background: #FFF;
 }
 
 .day-sun {
   color: #FF0000;
+  background: #FFF;
 }
 
 .calendar-td {
   min-width: 100px;
   background: #fff;
   border: solid 1px #dee2e6;
-}
-
-.day-blank {
-  background: #D3D3D3;
 }
 
 .past-day {
@@ -193,7 +211,6 @@ label {
 
 .day_part {
   color: #494949;
-  font-size: 12px;
 }
 
 .adjust-table {
@@ -212,6 +229,9 @@ label {
   width: 70%;
 }
 
+.day-blank {
+  background: #D3D3D3;
+}
 
 /* 予約削除モーダル */
 /* モーダル背景 */
@@ -945,16 +965,22 @@ label {
   text-align: center;
 }
 
-.reservation_table {}
+.reservation_table {
+  margin: auto;
+}
 
-.text-left {}
+.calendar_part {
+  background: #fff;
+  border: none !important;
+}
 
-.calendar_part {}
+.calendar_parts {
+  background: #fff;
+  border: none !important;
+}
 
-.calendar_parts {}
-
-.reservation_future {
-  background: #D3D3D3;
+.past_table {
+  opacity: 0.5;
 }
 
 /*水#03AAD2/灰(濃)#999(中)#D3D3D3(薄)#E0E5E9(薄ライン)#dee2e6(薄背景)#ecf1f6/紺#191970/桃#E38EAB/黄#EBBC5D*/
