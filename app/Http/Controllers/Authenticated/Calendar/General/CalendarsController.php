@@ -44,8 +44,8 @@ class CalendarsController extends Controller
     // 追加
     public function delete(Request $request){
 
-    // リクエストから必要なデータを取得
-    $reserveId = $request->input('id');
+    $reserveId = $request->input('id'); // リクエストから必要なデータを取得
+    //$reserveId=中間テーブルreserve_setting_usersのID//☆
     /*$reserveDate = $request->input('setting_reserve'); // 開講日/$dataReserve
     $reservePart = $request->input('setting_part'); // 部*/
 
@@ -53,6 +53,14 @@ class CalendarsController extends Controller
     /*$reserveSetting = ReserveSettings::where('setting_reserve', $reserveDate)
         ->where('setting_part', $reservePart)
         ->first();*/
+
+    // 予約キャンセル対象の reserve_setting_users レコードを取得
+    $reserveSettingUser = \DB::table('reserve_setting_users')
+        ->where('id', $reserveId)
+        ->where('user_id', Auth::id())
+        ->first();
+
+    $reserveSettingId = $reserveSettingUser->reserve_setting_id; // reserve_setting_id を取得
 
     // 条件に基づいてレコードを削除
     /*\DB::table('reserve_setting_users')
@@ -64,20 +72,15 @@ class CalendarsController extends Controller
         ->where('user_id', Auth::id())
         ->delete();
 
-    // response消してもよい
-    // 削除成功時
-    if ($deleted) {
-        return response()->json([
-            'success' => true,
-            'message' => '予約をキャンセルしました。'
-        ]);
+        if ($deleted) {
+        // 予約枠をインクリメント
+        \DB::table('reserve_settings')
+            ->where('id', $reserveSettingId)
+            ->increment('limit_users'); // 予約可能枠数を1増やす
+
     }
 
-    // 削除失敗時
-    return response()->json([
-        'success' => false,
-        'message' => '削除できませんでした。'
-    ]);
+    // responseいらない
 
     //ReserveSettings::findOrFail($request)->delete();//$id
 
@@ -85,7 +88,7 @@ class CalendarsController extends Controller
     /*$reserveId = ReserveSettings::find($request->input('id'));
     $reserveId->delete();*/
 
-    //〇return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
+    return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
 
     }
 }
