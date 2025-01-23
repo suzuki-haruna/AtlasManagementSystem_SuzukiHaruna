@@ -97,7 +97,8 @@ class PostsController extends Controller
         $post = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
-            'post' => $request->post_body
+            'post' => $request->post_body,
+            'created_at' => now() // 追加/現在時刻を設定
         ]);
 
         //$subCategories->posts()->sync($request->input('post_category_id'));

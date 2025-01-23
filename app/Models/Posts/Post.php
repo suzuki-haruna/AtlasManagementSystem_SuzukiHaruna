@@ -19,8 +19,11 @@ class Post extends Model
         'post',
 
         //追加
-        'main_category_id',
+        'main_category_id', 'created_at'
     ];
+
+    //public $timestamps = true; // 追加/タイムスタンプ自動登録
+    public $timestamps = false; // 自動タイムスタンプ無効化
 
     public function user(){
         return $this->belongsTo('App\Models\Users\User');

@@ -271,7 +271,7 @@ label {
 }
 
 .modal__bg {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5);
   height: 100vh;
   position: absolute;
   width: 100%;
@@ -285,6 +285,11 @@ label {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 60%;
+}
+
+.post_modal {
+  background: #FFF;
+  border: solid 1px #999;
 }
 
 /* 【掲示板：左】 */
@@ -313,6 +318,12 @@ label {
 
 .detail_container {
   background: #FFF;
+  border-radius: 10px;
+}
+
+.detail_post {
+  background: #FFF;
+  border-radius: 10px;
 }
 
 .post_area {
@@ -436,6 +447,7 @@ label {
   color: #fff;
   border: 0;
   border-radius: 0 8px 8px;
+  cursor: pointer;
 }
 
 .other_mylike {
@@ -452,6 +464,7 @@ label {
   margin: 1px;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .other_my {
@@ -460,15 +473,7 @@ label {
   margin: 1px;
   border: none;
   border-radius: 8px;
-}
-
-.category_btn {
-  font-size: 12px;
-  border-radius: 5px;
-  padding: 0 5px;
-  border: none;
-  background: #999;
-  color: #FFF;
+  cursor: pointer;
 }
 
 .other_category {
@@ -479,25 +484,44 @@ label {
   margin-top: 10px;
 }
 
-/* 掲示板 詳細画面 */
+/* 【掲示板：詳細】 */
 .contributor {
   font-size: 12px;
   color: #999;
   font-weight: bold;
+  background: #FFF;
 }
 
 .detsail_post_title {
-  font-size: 14px;
+  background: #FFF;
+  font-size: 16px;
 }
 
 .detsail_post {
-  font-size: 12px;
+  font-size: 14px;
   color: #9E9E9E;
 }
 
 .detail_inner_head {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  background: #FFF;
+}
+
+.detail_user {
+  background: #FFF;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.detail_user span {
+  background: #FFF;
+}
+
+.detail_comment {
+  background: #FFF;
+  border-radius: 10px;
 }
 
 .edit-modal-open {
@@ -514,7 +538,17 @@ label {
 }
 
 /* 掲示板 コメント */
-.comment_container {
+.comment_container p {
+  background: #FFF;
+}
+
+.comment_area {
+  background: #FFF;
+  color: #999;
+  border-radius: 10px;
+}
+
+.comment_area span {
   background: #FFF;
 }
 
@@ -527,10 +561,17 @@ label {
 .comment_area textarea {
   height: 300px;
   resize: none;
+  background: #FFF;
+  border: solid 1px #999;
 }
 
 .comment_container span {
   font-size: 12px;
+}
+
+.comment_input {
+  background: #FFF;
+  text-align: right;
 }
 
 /* 掲示板　カテゴリー */
@@ -551,11 +592,77 @@ label {
 .sub_categories li input {
   list-style: none;
   cursor: pointer;
+
+  /* 基準 */
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 10px 0 10px 0;
+  border-bottom: 2px solid #999;
 }
 
 .main_categories {
   width: 100%;
-  border-bottom: 2px solid #999;
+}
+
+.main_categories span:after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: #000 2px solid;
+  border-right: #000 2px solid;
+  /*-webkit-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);*/
+  /* 矢印の向きを調整 */
+  transform: rotate(135deg);
+  /* 回転と中央揃えを同時に実現 */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) rotate(135deg);
+  /* アニメーションで滑らかに回転 */
+  transition: transform 0.3s;
+  bottom: 15%;
+  margin: auto;
+}
+
+.main_categories.open span:after {
+  /* 開いているときは上向き */
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.category_btn {
+  width: 90%;
+  margin: 10px 0px 10px 15px;
+  text-align: left;
+  font-size: 14px;
+  padding: 0 5px;
+  border: none;
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  /* フォーカス時の黒い枠を削除 */
+  outline: none;
+}
+
+.category_btn:focus {
+  /* キーボード操作などでフォーカスが当たったときも黒い枠を削除 */
+  outline: none;
+}
+
+/* 【掲示板：投稿】 */
+.add_category {
+  background: #fff;
+}
+
+.add_border {
+  background: #fff;
+  border: 1px solid #999;
+  margin-bottom: 10px;
+}
+
+.mb-0 {
+  background: #fff;
 }
 
 /* ユーザー検索 */
@@ -564,10 +671,10 @@ label {
   flex-wrap: wrap;
   width: 800px;
   margin: 10px auto;
-  height: 80vh;
+  height: 100vh;
   overflow: scroll;
   padding: 10px;
-  background: #FFF;
+  background: #ecf1f6;
   border-radius: 5px;
 }
 
@@ -576,8 +683,41 @@ label {
 }
 
 .one_person {
-  width: 250px;
-  height: 250px;
+  width: 180px;
+  height: 180px;
+  background: #FFF;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 20%);
+}
+
+.search_item {
+  background: #FFF;
+  color: #999;
+  font-weight: 500;
+}
+
+.search_items {
+  background: #FFF;
+  font-weight: 500;
+}
+
+.search_user {
+  background: #FFF;
+  color: #03AAD2;
+  font-weight: 500;
+}
+
+.one_person a:hover {
+  text-decoration: none;
+}
+
+/* 【ユーザー検索：右】 */
+.free_word {
+  background: #D3D3D3;
+  border: none;
+  border-radius: 8px;
 }
 
 .search_conditions span {
@@ -599,4 +739,4 @@ label {
   display: none;
 }
 
-/*水#03AAD2/灰(濃)#999/桃#E38EAB/黄#EBBC5D*/
+/*水#03AAD2/灰(濃)#999(中)#D3D3D3(薄)#ecf1f6/桃#E38EAB/黄#EBBC5D*/
