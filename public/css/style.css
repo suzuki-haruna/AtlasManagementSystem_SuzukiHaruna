@@ -133,8 +133,12 @@ label {
 }
 
 /* トップページ */
+.top_area {
+  background: #ecf1f6;
+}
+
 .user_status {
-  margin: 100px auto;
+  margin: 50px auto;
   background: #FFF;
   border-radius: 10px;
   box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
@@ -149,8 +153,16 @@ label {
 }
 
 /* スクール予約関連 */
-.day-blank {
-  background: #D3D3D3;
+.day {
+  background: #FFF;
+}
+
+.table_week td:nth-child(6n) {
+  color: #0000FF;
+}
+
+.table_week td:nth-child(7n) {
+  color: #ff0000;
 }
 
 .day-sat {
@@ -161,12 +173,22 @@ label {
   color: #FF0000;
 }
 
+.calendar-td {
+  min-width: 100px;
+  background: #fff;
+  border: solid 1px #dee2e6;
+}
+
+.day-blank {
+  background: #D3D3D3;
+}
+
 .past-day {
   background: #EEEDEE;
 }
 
-.calendar-td {
-  min-width: 100px;
+.past-day p {
+  background: #EEEDEE;
 }
 
 .day_part {
@@ -199,7 +221,7 @@ label {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -208,6 +230,7 @@ label {
 
 /* モーダルコンテンツ */
 .modal-content {
+  margin: 10vh auto;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -220,6 +243,7 @@ label {
 /* メッセージ */
 #modal-message {
   margin-bottom: 20px;
+  background: #fff;
   font-size: 16px;
   color: #333;
 }
@@ -229,6 +253,7 @@ label {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  background: #fff;
 }
 
 .btn {
@@ -257,6 +282,10 @@ label {
 
 .btn-danger:hover {
   background-color: #c82333;
+}
+
+#cancel-button {
+  width: 105px;
 }
 
 /*//////////*/
@@ -715,28 +744,217 @@ label {
 
 /* 【ユーザー検索：右】 */
 .free_word {
-  background: #D3D3D3;
+  height: 40px;
+  padding-left: 10px;
+  background: #E0E5E9;
   border: none;
   border-radius: 8px;
 }
 
+.search_choose {
+  margin-top: 10px;
+}
+
+.search_lavel {
+  display: block;
+  background: #ecf1f6;
+  color: #191970;
+  font-size: 0.9rem;
+}
+
+.select_word {
+  height: 30px;
+  width: 80px;
+  padding-left: 10px;
+  background: #E0E5E9;
+  border: none;
+  border-radius: 8px;
+}
+
+.search_conditions {
+  width: 100%;
+}
+
 .search_conditions span {
+  display: block;
+  position: relative;
+  width: 190px;
+  margin: 20px 10px 10px 10px;
+  padding-bottom: 5px;
   cursor: pointer;
+  color: #191970;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #999;
+}
+
+.search_conditions span:after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: #000 2px solid;
+  border-right: #000 2px solid;
+  /* 矢印の向きを調整 */
+  transform: rotate(135deg);
+  /* 回転と中央揃えを同時に実現 */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) rotate(135deg);
+  /* アニメーションで滑らかに回転 */
+  transition: transform 0.3s;
+  bottom: 50%;
+  margin: auto;
+}
+
+.search_conditions.open span:after {
+  /* 開いているときは上向き */
+  transform: translateY(-50%) rotate(-45deg);
 }
 
 .search_conditions_inner {
   display: none;
+  margin: 10px;
   background: #FFF;
 }
 
+.conditions_inner {
+  padding-bottom: 15px;
+  background: #ecf1f6;
+}
+
+.engineer {
+  height: 30px;
+  width: 100px;
+  padding-left: 10px;
+  background: #E0E5E9;
+  border: none;
+  border-radius: 8px;
+}
+
+.search_btn {
+  display: block;
+  width: 190px;
+  margin: 30px 10px;
+  padding: 5px;
+  text-align: center;
+  background: #03AAD2;
+  color: #FFF;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.search_reset {
+  width: 190px;
+  margin-left: 10px;
+  text-align: center;
+  color: #03AAD2;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* 【プロフィール】 */
 .subject_edit_btn {
   font-size: 12px;
-  color: #0000FF;
+  color: #03AAD2;
   cursor: pointer;
+
+  display: block;
+  position: relative;
+  width: 110px;
+  margin: 20px 10px 10px 10px;
+  padding-bottom: 5px;
+}
+
+.subject_edit_btn:after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: #03AAD2 2px solid;
+  border-right: #03AAD2 2px solid;
+  /* 矢印の向きを調整 */
+  transform: rotate(135deg);
+  /* 回転と中央揃えを同時に実現 */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) rotate(135deg);
+  /* アニメーションで滑らかに回転 */
+  transition: transform 0.3s;
+  bottom: 50%;
+  margin: auto;
+}
+
+.subject_edit_btn.open:after {
+  /* 開いているときは上向き */
+  transform: translateY(-50%) rotate(-45deg);
 }
 
 .subject_inner {
   display: none;
 }
 
-/*水#03AAD2/灰(濃)#999(中)#D3D3D3(薄)#ecf1f6/桃#E38EAB/黄#EBBC5D*/
+.subject_item {
+  display: inline;
+  background: #fff;
+}
+
+/* 【カレンダー】 */
+.calendar_style {
+  box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
+}
+
+.calendar_week {
+  background: #fff;
+  border: solid 1px #dee2e6;
+}
+
+.calendar_sat {
+  background: #fff;
+  border: solid 1px #dee2e6;
+  color: #0000FF;
+}
+
+.calendar_sun {
+  background: #fff;
+  border: solid 1px #dee2e6;
+  color: #ff0000;
+}
+
+/* 【予約確認】 */
+
+.calendar_reservation {
+  margin: 10vh auto;
+  border: solid 50px #fff;
+  border-top-width: 10px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
+}
+
+.reservation {
+  margin: 10vh 0;
+  background: #fff;
+}
+
+.reservation_title {
+  background: #fff;
+  text-align: center;
+}
+
+.reservation_table {}
+
+.text-left {}
+
+.calendar_part {}
+
+.calendar_parts {}
+
+.reservation_future {
+  background: #D3D3D3;
+}
+
+/*水#03AAD2/灰(濃)#999(中)#D3D3D3(薄)#E0E5E9(薄ライン)#dee2e6(薄背景)#ecf1f6/紺#191970/桃#E38EAB/黄#EBBC5D*/

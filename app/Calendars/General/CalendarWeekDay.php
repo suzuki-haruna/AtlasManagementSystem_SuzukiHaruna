@@ -53,11 +53,11 @@ class CalendarWeekDay{
 
      // 追加
       if ($ymd <= $currentDate) {
-      $html[] = '<p>受付終了</p>'; // 過去の日付には受付終了を表示
+      $html[] = '<p style="color: #000;">受付終了</p>'; // 過去の日付には受付終了を表示
       $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
       } else {
 
-     $html[] = '<select name="getPart[]" class="border-primary" style="width:70px; border-radius:5px;" form="reserveParts">';
+     $html[] = '<select name="getPart[]" class="border-primary" style="width:70px; border-radius:5px; background: #FFF;" form="reserveParts">';
      $html[] = '<option value="" selected></option>';
      if($one_part_frame == "0"){
        $html[] = '<option value="1" disabled>リモ1部(残り0枠)</option>';
