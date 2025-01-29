@@ -23,7 +23,7 @@ class CalendarView{
     $html[] = '<table class="table">';
     $html[] = '<thead>';
     $html[] = '<tr>';
-    $html[] = '<th>月</th>';
+    $html[] = '<th style="background:#FFF;">月</th>';
     $html[] = '<th>火</th>';
     $html[] = '<th>水</th>';
     $html[] = '<th>木</th>';

@@ -133,8 +133,12 @@ label {
 }
 
 /* トップページ */
+.top_area {
+  background: #ecf1f6;
+}
+
 .user_status {
-  margin: 100px auto;
+  margin: 50px auto;
   background: #FFF;
   border-radius: 10px;
   box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
@@ -715,28 +719,168 @@ label {
 
 /* 【ユーザー検索：右】 */
 .free_word {
-  background: #D3D3D3;
+  height: 40px;
+  padding-left: 10px;
+  background: #E0E5E9;
   border: none;
   border-radius: 8px;
 }
 
+.search_choose {
+  margin-top: 10px;
+}
+
+.search_lavel {
+  display: block;
+  background: #ecf1f6;
+  color: #191970;
+  font-size: 0.9rem;
+}
+
+.select_word {
+  height: 30px;
+  width: 80px;
+  padding-left: 10px;
+  background: #E0E5E9;
+  border: none;
+  border-radius: 8px;
+}
+
+.search_conditions {
+  width: 100%;
+}
+
 .search_conditions span {
+  display: block;
+  position: relative;
+  width: 190px;
+  margin: 20px 10px 10px 10px;
+  padding-bottom: 5px;
   cursor: pointer;
+  color: #191970;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #999;
+}
+
+.search_conditions span:after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: #000 2px solid;
+  border-right: #000 2px solid;
+  /* 矢印の向きを調整 */
+  transform: rotate(135deg);
+  /* 回転と中央揃えを同時に実現 */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) rotate(135deg);
+  /* アニメーションで滑らかに回転 */
+  transition: transform 0.3s;
+  bottom: 50%;
+  margin: auto;
+}
+
+.search_conditions.open span:after {
+  /* 開いているときは上向き */
+  transform: translateY(-50%) rotate(-45deg);
 }
 
 .search_conditions_inner {
   display: none;
+  margin: 10px;
   background: #FFF;
 }
 
+.conditions_inner {
+  padding-bottom: 15px;
+  background: #ecf1f6;
+}
+
+.engineer {
+  height: 30px;
+  width: 100px;
+  padding-left: 10px;
+  background: #E0E5E9;
+  border: none;
+  border-radius: 8px;
+}
+
+.search_btn {
+  display: block;
+  width: 190px;
+  margin: 30px 10px;
+  padding: 5px;
+  text-align: center;
+  background: #03AAD2;
+  color: #FFF;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.search_reset {
+  width: 190px;
+  margin-left: 10px;
+  text-align: center;
+  color: #03AAD2;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* 【プロフィール】 */
 .subject_edit_btn {
   font-size: 12px;
-  color: #0000FF;
+  color: #03AAD2;
   cursor: pointer;
+
+  display: block;
+  position: relative;
+  width: 110px;
+  margin: 20px 10px 10px 10px;
+  padding-bottom: 5px;
+}
+
+.subject_edit_btn:after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: #03AAD2 2px solid;
+  border-right: #03AAD2 2px solid;
+  /* 矢印の向きを調整 */
+  transform: rotate(135deg);
+  /* 回転と中央揃えを同時に実現 */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) rotate(135deg);
+  /* アニメーションで滑らかに回転 */
+  transition: transform 0.3s;
+  bottom: 50%;
+  margin: auto;
+}
+
+.subject_edit_btn.open:after {
+  /* 開いているときは上向き */
+  transform: translateY(-50%) rotate(-45deg);
 }
 
 .subject_inner {
   display: none;
 }
 
-/*水#03AAD2/灰(濃)#999(中)#D3D3D3(薄)#ecf1f6/桃#E38EAB/黄#EBBC5D*/
+.subject_item {
+  display: inline;
+  background: #fff;
+}
+
+/* 【カレンダー】 */
+.calendar_style {
+  box-shadow: 0 10px 25px 0 rgb(0 0 0 / 20%);
+}
+
+/*水#03AAD2/灰(濃)#999(中)#D3D3D3(薄)#E0E5E9(薄背景)#ecf1f6/紺#191970/桃#E38EAB/黄#EBBC5D*/
