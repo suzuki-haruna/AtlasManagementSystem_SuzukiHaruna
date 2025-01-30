@@ -153,8 +153,16 @@ label {
 }
 
 /* スクール予約関連 */
-.day-blank {
-  background: #D3D3D3;
+.day {
+  background: #FFF;
+}
+
+.table_week td:nth-child(6n) {
+  color: #0000FF;
+}
+
+.table_week td:nth-child(7n) {
+  color: #ff0000;
 }
 
 .day-mon {
@@ -198,7 +206,9 @@ label {
   background: #EEEDEE;
 }
 
-/*/git*/
+.past-day p {
+  background: #EEEDEE;
+}
 
 .day_part {
   color: #494949;
@@ -233,7 +243,7 @@ label {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,6 +252,7 @@ label {
 
 /* モーダルコンテンツ */
 .modal-content {
+  margin: 10vh auto;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -254,6 +265,7 @@ label {
 /* メッセージ */
 #modal-message {
   margin-bottom: 20px;
+  background: #fff;
   font-size: 16px;
   color: #333;
 }
@@ -263,6 +275,7 @@ label {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  background: #fff;
 }
 
 .btn {
@@ -291,6 +304,10 @@ label {
 
 .btn-danger:hover {
   background-color: #c82333;
+}
+
+#cancel-button {
+  width: 105px;
 }
 
 /*//////////*/
@@ -869,6 +886,7 @@ label {
   width: 190px;
   margin-left: 10px;
   text-align: center;
+  background: #ecf1f6;
   color: #03AAD2;
   font-size: 0.9rem;
   border: none;
@@ -955,7 +973,7 @@ label {
 }
 
 .reservation {
-  margin: 10vh 0;
+  margin: 10px 0;
   background: #fff;
 }
 

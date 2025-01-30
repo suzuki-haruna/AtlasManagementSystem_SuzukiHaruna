@@ -20,16 +20,16 @@ class CalendarView{
   function render(){
     $html = []; // $htmlという名前の変数を空の配列として初期化する/[]空の配列(Array)
     $html[] = '<div class="calendar text-center">'; // 配列$htmlに新しい要素を追加
-    $html[] = '<table class="table">';
+    $html[] = '<table class="table table_week">';
     $html[] = '<thead>';
     $html[] = '<tr>';
-    $html[] = '<th style="background:#FFF;">月</th>';
-    $html[] = '<th>火</th>';
-    $html[] = '<th>水</th>';
-    $html[] = '<th>木</th>';
-    $html[] = '<th>金</th>';
-    $html[] = '<th>土</th>';
-    $html[] = '<th>日</th>';
+    $html[] = '<th class="calendar_week">月</th>';
+    $html[] = '<th class="calendar_week">火</th>';
+    $html[] = '<th class="calendar_week">水</th>';
+    $html[] = '<th class="calendar_week">木</th>';
+    $html[] = '<th class="calendar_week">金</th>';
+    $html[] = '<th class="calendar_sat">土</th>';
+    $html[] = '<th class="calendar_sun">日</th>';
     $html[] = '</tr>';
     $html[] = '</thead>';
     $html[] = '<tbody>';
@@ -119,7 +119,7 @@ class CalendarView{
 
           // 過去
           if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
-            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">'. $reservePart .'</p>';
+            $html[] = '<p class="m-auto p-0 w-75" style="font-weight:600; color: #000;">'. $reservePart .'</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">'; // 隠しフィールド：フィールド名getPart[] value=""設定する必要あるかも（'. $reservePart .'）とか formグループ"reserveParts"
 
           // 未来
@@ -130,7 +130,7 @@ class CalendarView{
 
             //〇$html[] = '<a href="' . route('deleteParts', ['id' => $reserveId->first()->id]) . '" class="btn btn-danger p-0 w-75" style="font-size:12px" onclick="return confirm(\'予約日：' . $reserveId->first()->setting_reserve . '\n 時間：'. $reservePart .'\n 上記の予約をキャンセルしてもよろしいですか？\')">'. $reservePart .'</a>';
 
-            $html[] = '<a href="#" class="open-modal btn btn-danger p-0 w-75" style="font-size:12px"
+            $html[] = '<a href="#" class="open-modal btn btn-danger p-0 m-auto" style="font-size: 14px; height: 25px; width: 70px; display: block;"
             data-id="' . $reserveId . '"
             data-reserve="' . $dataReserve . '"
             data-part="' . $reservePart . '">
@@ -143,8 +143,10 @@ class CalendarView{
 
             // モーダル：予約キャンセル
             $html[] = '<div id="custom-modal" class="modal"><div class="modal-content"><p id="modal-message"></p>
-            <button id="cancel-button" class="btn btn-secondary">閉じる</button>
-            <button id="confirm-button" class="btn btn-danger">キャンセル</button></div></div>';
+            <div class="modal-buttons">
+            <button id="cancel-button" class="btn btn-primary">閉じる</button>
+            <button id="confirm-button" class="btn btn-danger">キャンセル</button></div></div>
+            </div>';
             // custom-modalはJs用/class="modal""modal-content"はCSS用
 
           }

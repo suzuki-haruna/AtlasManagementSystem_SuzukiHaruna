@@ -94,11 +94,11 @@
               <option value="4" class="">生徒</option>
             </select>
           </div>
-          <div class="selected_engineer">
+          <div class="selected_engineer" style="background: #ecf1f6;">
             <label class="search_lavel">選択科目</label>
 
             @foreach($subjects as $subjects)<!-- 繰り返し(subjects を subjects として扱う) -->
-            <span>{{ $subjects->subject }}</span><!-- subjects の subjectカラム表示  -->
+            <span style="background: #ecf1f6;">{{ $subjects->subject }}</span><!-- subjects の subjectカラム表示  -->
             <input type="checkbox" name="subjects[]" value="{{ $subjects->id }}" form="userSearchRequest">
             <!-- フォーム、チェックボックス データセットsubjects[]複数の配列で送る 初期入力値subjectsのid フォームグループuserSearchRequest --><!--☆-->
             {{-- {{ in_array($subjects->id, $subjectsIds ?? []) ? 'checked' : '' }} --}}
