@@ -106,7 +106,7 @@ label {
 /* 【サイドバー】 */
 .sidebar {
   width: 200px;
-  height: 100vh;
+  min-height: 100vh;
   background: #03AAD2;
   font-weight: bold;
   padding: 20px 10px;
@@ -718,22 +718,34 @@ label {
 }
 
 /* ユーザー検索 */
+.search_content {
+  display: flex;
+  height: 100vh;
+}
+
 .reserve_users_area {
   display: flex;
   flex-wrap: wrap;
+
+  justify-content: start;
+  /* ボックス間の余白 */
+  gap: 10px;
+  /* 横幅を調整 */
+
   width: 800px;
   margin: 10px auto;
-  height: 100vh;
-  overflow: scroll;
+  /*height: 100vh;*/
+  overflow-y: scroll;
   padding: 10px;
-  background: #ecf1f6;
+  /*background: #ecf1f6;
   border-radius: 5px;
 
   min-height: auto;
+  */
   /* 高さを自動調整 */
-  height: auto;
+  /*height: auto;*/
   /* コンテンツに応じた高さ */
-  max-height: 100vh;
+  /*max-height: 100vh;*/
   /* 最大の高さを制限 */
 }
 
@@ -742,16 +754,20 @@ label {
 }
 
 /* コンテンツが少ない場合のマージンをなくす */
-.reserve_users_area:has(.reserve_user):only-child {
+/*.reserve_users_area:has(.reserve_user):only-child {
   margin-top: 0;
   margin-bottom: 0;
-}
+}*/
 
 .one_person {
-  width: 180px;
+  /* 4人ずつ並べる */
+  width: calc(25% - 10px);
+  /* 最小幅を指定 */
+  min-width: 180px;
+  /*width: 180px;*/
   height: 180px;
   background: #FFF;
-  margin: 5px;
+  /*margin: 5px;*/
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 5px 10px 0 rgb(0 0 0 / 20%);

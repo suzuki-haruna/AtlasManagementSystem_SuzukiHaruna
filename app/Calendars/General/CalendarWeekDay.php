@@ -53,7 +53,7 @@ class CalendarWeekDay{
 
      // 追加
       if ($ymd <= $currentDate) {
-      $html[] = '<p>受付終了</p>'; // 過去の日付には受付終了を表示
+      $html[] = '<p style="color: #000;">受付終了</p>'; // 過去の日付には受付終了を表示
       $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
       } else {
 
