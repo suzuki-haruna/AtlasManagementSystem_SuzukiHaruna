@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Calendars\General\CalendarView;
 use App\Models\Calendars\ReserveSettings;
-use App\Models\Calendars\Calendar;
+use App\Models\Calendars\Calendar; //
 use App\Models\USers\User;
 use Auth;
 use DB;
@@ -14,7 +14,7 @@ use DB;
 class CalendarsController extends Controller
 {
     public function show(){
-        $calendar = new CalendarView(time());
+        $calendar = new CalendarView(time()); // $calendar = CalendarView(最新日付を基準に)カレンダーを生成 //★
         return view('authenticated.calendar.general.calendar', compact('calendar'));
     }
 

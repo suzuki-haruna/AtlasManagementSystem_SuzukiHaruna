@@ -3,7 +3,7 @@ namespace App\Calendars\General;
 
 class CalendarWeekBlankDay extends CalendarWeekDay{
   function getClassName(){
-    return "day-blank";
+    return "day-blank"; // 表示範囲外の日
   }
 
   /**

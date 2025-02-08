@@ -33,5 +33,12 @@ Model
 
 <li class="" category_id="{{ $sub_category->id }}">
           <a href="{{ route('post.show', ['category_word' => $sub_category->id]) }}">{{ $sub_category->sub_category }}</a>
+
 <input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->id }}" form="postSearchRequest">
           <span>{{ $sub_category->sub_category }}</span></li><!--CSSてきとーとりあえずで-->
+
+<li>
+          <input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->id }}" form="postSearchRequest">
+          </li>
+
+getClassName

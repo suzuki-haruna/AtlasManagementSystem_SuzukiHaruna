@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Authenticated\Calendar\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Calendars\Admin\CalendarView;
-use App\Calendars\Admin\CalendarSettingView;
+use App\Calendars\Admin\CalendarSettingView; // Adminのみ
 use App\Models\Calendars\ReserveSettings;
 use App\Models\Calendars\Calendar;
 use App\Models\USers\User;
@@ -15,7 +15,7 @@ use DB;
 class CalendarsController extends Controller
 {
     public function show(){
-        $calendar = new CalendarView(time());
+        $calendar = new CalendarView(time()); //確認
         return view('authenticated.calendar.admin.calendar', compact('calendar'));
     }
 

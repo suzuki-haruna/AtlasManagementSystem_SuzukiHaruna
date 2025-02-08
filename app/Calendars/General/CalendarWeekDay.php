@@ -13,7 +13,7 @@ class CalendarWeekDay{
   }
 
   function getClassName(){
-    return "day-" . strtolower($this->carbon->format("D"));
+    return "day-" . strtolower($this->carbon->format("D")); // 曜日の省略名を小文字で返す
   }
 
   function pastClassName(){
@@ -29,6 +29,7 @@ class CalendarWeekDay{
    }
 
    function selectPart($ymd){
+//$currentDate = now()->format('Y-m-d'); // 現在の日付を取得
      $one_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
      $two_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
      $three_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
@@ -49,6 +50,9 @@ class CalendarWeekDay{
      }
 
      $html = [];
+//if ($ymd < $currentDate) {
+//$html[] = '<p>受付終了</p>'; // 過去の日付には受付終了を表示
+//} else {
      $html[] = '<select name="getPart[]" class="border-primary" style="width:70px; border-radius:5px;" form="reserveParts">';
      $html[] = '<option value="" selected></option>';
      if($one_part_frame == "0"){
@@ -67,6 +71,7 @@ class CalendarWeekDay{
        $html[] = '<option value="3">リモ3部(残り'.$three_part_frame.'枠)</option>';
      }
      $html[] = '</select>';
+//}
      return implode('', $html);
    }
 

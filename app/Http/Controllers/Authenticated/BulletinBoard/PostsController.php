@@ -56,11 +56,11 @@ class PostsController extends Controller
         ->get();*/
 
         }else if ($request->filled('category_word')) {
-            $categoryId = $request->category_word;
+            $sub_category = $request->category_word;
             //ddd($request->all());
             $posts = Post::with('user', 'postComments', 'subCategories')
-            ->whereHas('subCategories', function ($query) use ($categoryId) {
-            $query->where('sub_categories.id', $categoryId);
+            ->whereHas('subCategories', function ($query) use ($sub_category) {
+            $query->where('sub_categories.id', $sub_category);
         })
         ->get();
 

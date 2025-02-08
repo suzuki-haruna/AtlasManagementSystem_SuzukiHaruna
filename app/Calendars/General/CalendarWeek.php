@@ -13,7 +13,7 @@ class CalendarWeek{
   }
 
   function getClassName(){
-    return "week-" . $this->index;
+    return "week-" . $this->index; // 日付操作に関連するプロパティを参照
   }
 
   /**
