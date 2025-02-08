@@ -4,6 +4,8 @@ namespace App\Calendars\Admin;
 use Carbon\Carbon;
 use App\Models\Calendars\ReserveSettings;
 
+use DB;
+
 class CalendarWeekDay{
   protected $carbon;
 
@@ -25,23 +27,34 @@ class CalendarWeekDay{
 
   function dayPartCounts($ymd){
     $html = [];
-    $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
-    $two_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
-    $three_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
+    // 各部ごとの予約設定を取得
+    $one_part = ReserveSettings::withCount('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first(); // with→withCount
+    $two_part = ReserveSettings::withCount('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
+    $three_part = ReserveSettings::withCount('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
 
+//→
     $html[] = '<div class="text-left">';
+
+    $html[] = '<table border="0">';
+
     if($one_part){
-      $html[] = '<p class="day_part m-0 pt-1">1部</p>';
+      // $html[] = '<p class="day_part m-0 pt-1">1部</p>';
+      $html[] = '<tr class="day_part m-0 pt-1"><td>1部</td><td>'. $one_part->users_count . '</td></tr>';
     }
+
     if($two_part){
-      $html[] = '<p class="day_part m-0 pt-1">2部</p>';
+      $html[] = '<tr class="day_part m-0 pt-1"><td>2部</td><td>'. $two_part->users_count . '</td></tr>';
     }
     if($three_part){
-      $html[] = '<p class="day_part m-0 pt-1">3部</p>';
+      $html[] = '<tr class="day_part m-0 pt-1"><td>3部</td><td>'. $three_part->users_count . '</td></tr>';
     }
-    $html[] = '</div>';
 
-    return implode("", $html);
+    $html[] = '</table>';
+
+    $html[] = '</div>';
+//←
+
+    return implode("", $html); // HTML文字列を返す
   }
 
 
