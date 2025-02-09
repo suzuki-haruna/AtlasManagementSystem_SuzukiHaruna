@@ -4,8 +4,6 @@ namespace App\Calendars\Admin;
 use Carbon\Carbon;
 use App\Models\Calendars\ReserveSettings;
 
-use DB;
-
 class CalendarWeekDay{
   protected $carbon;
 
@@ -39,14 +37,17 @@ class CalendarWeekDay{
 
     if($one_part){
       // $html[] = '<p class="day_part m-0 pt-1">1部</p>';
-      $html[] = '<tr class="day_part m-0 pt-1"><td>1部</td><td>'. $one_part->users_count . '</td></tr>';
+      $html[] = '<tr class="day_part m-0 pt-1"><td><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 1]) . '">1部</a></td>
+      <td>'. $one_part->users_count . '</td></tr>';
     }
 
     if($two_part){
-      $html[] = '<tr class="day_part m-0 pt-1"><td>2部</td><td>'. $two_part->users_count . '</td></tr>';
+      $html[] = '<tr class="day_part m-0 pt-1"><td><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 2]) . '">2部</a></td>
+      <td>'.$two_part->users_count . '</td></tr>';
     }
     if($three_part){
-      $html[] = '<tr class="day_part m-0 pt-1"><td>3部</td><td>'. $three_part->users_count . '</td></tr>';
+      $html[] = '<tr class="day_part m-0 pt-1"><td><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => 3]) . '">3部</a></td>
+      <td>'. $three_part->users_count . '</td></tr>';
     }
 
     $html[] = '</table>';
