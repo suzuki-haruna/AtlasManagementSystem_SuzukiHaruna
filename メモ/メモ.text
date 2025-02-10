@@ -41,4 +41,5 @@ Model
           <input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->id }}" form="postSearchRequest">
           </li>
 
-getClassName
+
+laravel6 予約 キャンセル 確認　モーダル

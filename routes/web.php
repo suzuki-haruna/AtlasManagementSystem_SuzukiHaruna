@@ -33,7 +33,8 @@ Route::group(['middleware' => 'auth'], function(){
             Route::namespace('General')->group(function(){
                 Route::get('/calendar/{user_id}', 'CalendarsController@show')->name('calendar.general.show');
                 Route::post('/reserve/calendar', 'CalendarsController@reserve')->name('reserveParts');
-                Route::post('/delete/calendar', 'CalendarsController@delete')->name('deleteParts');
+                Route::post('/delete/calendar', 'CalendarsController@delete')->name('deleteParts'); // 予約キャンセル
+                //Route::get('/delete/calendar/{id}', 'CalendarsController@delete')->name('deleteParts');
             });
             Route::namespace('Admin')->group(function(){
                 Route::get('/calendar/{user_id}/admin', 'CalendarsController@show')->name('calendar.admin.show');
@@ -52,7 +53,7 @@ Route::group(['middleware' => 'auth'], function(){
             Route::post('/create/sub_category', 'PostsController@subCategoryCreate')->name('sub.category.create');
             Route::get('/bulletin_board/post/{id}', 'PostsController@postDetail')->name('post.detail');
             Route::post('/bulletin_board/edit', 'PostsController@postEdit')->name('post.edit');
-            Route::get('/bulletin_board/delete/{id}', 'PostsController@postDelete')->name('post.delete');
+            Route::get('/bulletin_board/delete/{id}', 'PostsController@postDelete')->name('post.delete'); // 投稿削除
             Route::post('/comment/create', 'PostsController@commentCreate')->name('comment.create');
             Route::post('/like/post/{id}', 'PostsController@postLike')->name('post.like');
             Route::post('/unlike/post/{id}', 'PostsController@postUnLike')->name('post.unlike');

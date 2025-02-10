@@ -4,6 +4,8 @@ namespace App\Calendars\General;
 use Carbon\Carbon; // 日付や時刻の操作
 use Auth;
 
+use App\Models\Calendars\ReserveSettings; // 追加
+
 class CalendarView{
 
   private $carbon; // アクセス制限を表す修飾子、クラス内部でのみ使用されるプロパティ、クラス外部から直接$carbonを操作することを防ぐ。
@@ -61,6 +63,8 @@ class CalendarView{
 
         if(in_array($day->everyDay(), $day->authReserveDay())){ // if①予約された日付：第1引数が配列内に存在する場合にtrueを返す($day->everyDay日付, $day->authReserveDay認証された予約日 のリストを取得＝$day->everyDayの返す日付が$day->authReserveDayのリストに含まれている場合、この条件はtrueを返す。
           $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part; // $reservePart = $day->authReserveDate($day->everyDay)指定された日付に関連する予約情報を取得->取得されたコレクションのうち最初のレコードを返す->最初のレコードからsetting_part属性の値を取得
+          $reserveId = ReserveSettings::with('users')->get(); // 追加/中間テーブルのデータを含む予約データを取得
+          $dataReserve = $day->everyDay();
 
           // 追加分岐
           if($day->everyDay()){
@@ -80,7 +84,7 @@ class CalendarView{
             default => "受付終了",
             };*/
 
-            /*else { // 追加
+            /*else{ // 追加
             $reservePart = "受付終了";
             }*/ // ;いらない!?*/
 
@@ -99,17 +103,41 @@ class CalendarView{
           if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">'. $reservePart .'</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">'; // 隠しフィールド：フィールド名getPart[] value=""設定する必要あるかも（'. $reservePart .'）とか formグループ"reserveParts"
-//★
-          //  未来
+
+          // 未来
           }else{
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
+            //$html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
+            //$html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            //ddd($reservePart);
+
+            //〇$html[] = '<a href="' . route('deleteParts', ['id' => $reserveId->first()->id]) . '" class="btn btn-danger p-0 w-75" style="font-size:12px" onclick="return confirm(\'予約日：' . $reserveId->first()->setting_reserve . '\n 時間：'. $reservePart .'\n 上記の予約をキャンセルしてもよろしいですか？\')">'. $reservePart .'</a>';
+            /*$html[] = '<a href="' . route('deleteParts', ['id' => $reserveId->first()->id]) . '" class="open-modal btn btn-danger p-0 w-75" style="font-size:12px"
+            data-id="' . $reserveId->first()->id . '"
+            data-reserve="' . $reserveId->first()->setting_reserve . '"
+            data-part="' . $reservePart . '">
+            '. $reservePart .'</a>';*/
+            // a href="#"!?/class="open-modalはjs用
+            $html[] = '<a href="#" class="open-modal btn btn-danger p-0 w-75" style="font-size:12px"
+            data-id="' . $reserveId->first()->id . '"
+            data-reserve="' . $dataReserve . '"
+            data-part="' . $reservePart . '">
+            '. $reservePart .'</a>';
+
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            //deleteParts/data-reserve="' . $reserveId->first()->setting_reserve . '"
+            //ddd($reserveId);
+
+            // モーダル：予約キャンセル
+            $html[] = '<div id="custom-modal" class="modal"><div class="modal-content"><p id="modal-message"></p>
+            <button id="cancel-button" class="btn btn-secondary">閉じる</button>
+            <button id="confirm-button" class="btn btn-danger">キャンセル</button></div></div>';
+            // class="modal"はCSS用
           }
         }
-
+//★
         // 参加しなかった日//追加
         /*else{
-          if ($day->everyDay() < $this->carbon->copy()->format("Y-m-d")) {
+          if ($day->everyDay() < $this->carbon->copy()->format("Y-m-d")) {…}
           //if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
           $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
           }//*/
